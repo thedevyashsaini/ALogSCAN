@@ -1,0 +1,1412 @@
+
+ALogSCAN — EXTENDED FULL-LENGTH TECHNICAL EXPLANATION
+=====================================================
+
+This document is intentionally extremely long. It is written as a single, uninterrupted technical
+reference that can be fed into a large language model as contextual grounding. It merges all conceptual,
+architectural, mathematical, experimental, and implementation details of the ALogSCAN paper, re-expressing
+all of them in expanded form. No summarization is performed; instead, each idea is elaborated to maximum
+depth so an LLM can reconstruct the full pipeline, motivations, and reasoning behind every component.
+
+The goal is to produce a long text that the user can supply as raw context. Every concept is restated in
+multiple ways: technically precise, intuitive, and implementation-oriented. Many paragraphs deliberately
+reiterate the same concept differently so an LLM gains redundancy and clarity.
+
+This text covers:
+- Motivation for ALogSCAN
+- Log instability and template drift
+- Class imbalance and rare event modeling
+- DFLF: Dynamic Frequency-based Log Filtering (deep explanation)
+- IRCI reconstruction
+- Knowledge distillation teacher–student architecture
+- AE and EO structure
+- Loss functions
+- Algorithmic details
+- Ablation interpretations
+- Complexity analysis
+- Dataset behaviors
+- Implementation concerns
+- Future directions
+
+Everything is expanded significantly beyond the paper.
+
+--------------------------------------------------------------------
+
+
+
+MOTIVATION AND PROBLEM SETTING
+==============================
+
+
+The foundational motivation for ALogSCAN arises from long-standing problems in practical cloud log anomaly
+detection. Cloud infrastructure produces logs at huge scale. These logs encode system events, application
+state transitions, warnings, errors, telemetry, and intermediate operational details. In theory, logs are
+rich sources of information for detecting failures, misconfigurations, or malicious behaviors. However,
+three major challenges make naive ML approaches fail:
+
+1. Log instability.
+   Cloud systems evolve continuously: deployments occur, microservices are updated, dependencies change,
+   configuration flags alter execution paths, and new error-handling code introduces new log templates.
+   As a result, the distribution of log templates drifts over time. A model trained on past logs may easily
+   misinterpret new templates as anomalous or, worse, may not recognize new types of anomalies embedded
+   in new templates. Template drift is one of the biggest unstated reasons ML log detectors fail in real
+   production.
+
+2. Class imbalance.
+   Normal behavior dominates logs. Rare events include error conditions, unusual sequences, or genuine
+   anomalies. Training a model on imbalanced data usually leads to the model learning only dominant
+   frequent patterns. These frequent templates overshadow the semantic contribution of rare templates.
+   Because anomalies often manifest through rare sequences or unusual combinations of templates,
+   a model that is biased toward dominant patterns will systematically fail.
+
+3. Lack of labels.
+   Labeling logs is extremely expensive. A single cloud system may generate billions of logs per day.
+   Labeling requires deep domain expertise, context, runbook knowledge, correlation with other metrics,
+   and even internal system knowledge. Supervised learning is practically impossible.
+
+ALogSCAN's design is therefore grounded in the need for self-supervised robust anomaly detection that can
+adapt dynamically, prioritize rare templates, and require no annotation.
+
+
+
+The foundational motivation for ALogSCAN arises from long-standing problems in practical cloud log anomaly
+detection. Cloud infrastructure produces logs at huge scale. These logs encode system events, application
+state transitions, warnings, errors, telemetry, and intermediate operational details. In theory, logs are
+rich sources of information for detecting failures, misconfigurations, or malicious behaviors. However,
+three major challenges make naive ML approaches fail:
+
+1. Log instability.
+   Cloud systems evolve continuously: deployments occur, microservices are updated, dependencies change,
+   configuration flags alter execution paths, and new error-handling code introduces new log templates.
+   As a result, the distribution of log templates drifts over time. A model trained on past logs may easily
+   misinterpret new templates as anomalous or, worse, may not recognize new types of anomalies embedded
+   in new templates. Template drift is one of the biggest unstated reasons ML log detectors fail in real
+   production.
+
+2. Class imbalance.
+   Normal behavior dominates logs. Rare events include error conditions, unusual sequences, or genuine
+   anomalies. Training a model on imbalanced data usually leads to the model learning only dominant
+   frequent patterns. These frequent templates overshadow the semantic contribution of rare templates.
+   Because anomalies often manifest through rare sequences or unusual combinations of templates,
+   a model that is biased toward dominant patterns will systematically fail.
+
+3. Lack of labels.
+   Labeling logs is extremely expensive. A single cloud system may generate billions of logs per day.
+   Labeling requires deep domain expertise, context, runbook knowledge, correlation with other metrics,
+   and even internal system knowledge. Supervised learning is practically impossible.
+
+ALogSCAN's design is therefore grounded in the need for self-supervised robust anomaly detection that can
+adapt dynamically, prioritize rare templates, and require no annotation.
+
+
+
+The foundational motivation for ALogSCAN arises from long-standing problems in practical cloud log anomaly
+detection. Cloud infrastructure produces logs at huge scale. These logs encode system events, application
+state transitions, warnings, errors, telemetry, and intermediate operational details. In theory, logs are
+rich sources of information for detecting failures, misconfigurations, or malicious behaviors. However,
+three major challenges make naive ML approaches fail:
+
+1. Log instability.
+   Cloud systems evolve continuously: deployments occur, microservices are updated, dependencies change,
+   configuration flags alter execution paths, and new error-handling code introduces new log templates.
+   As a result, the distribution of log templates drifts over time. A model trained on past logs may easily
+   misinterpret new templates as anomalous or, worse, may not recognize new types of anomalies embedded
+   in new templates. Template drift is one of the biggest unstated reasons ML log detectors fail in real
+   production.
+
+2. Class imbalance.
+   Normal behavior dominates logs. Rare events include error conditions, unusual sequences, or genuine
+   anomalies. Training a model on imbalanced data usually leads to the model learning only dominant
+   frequent patterns. These frequent templates overshadow the semantic contribution of rare templates.
+   Because anomalies often manifest through rare sequences or unusual combinations of templates,
+   a model that is biased toward dominant patterns will systematically fail.
+
+3. Lack of labels.
+   Labeling logs is extremely expensive. A single cloud system may generate billions of logs per day.
+   Labeling requires deep domain expertise, context, runbook knowledge, correlation with other metrics,
+   and even internal system knowledge. Supervised learning is practically impossible.
+
+ALogSCAN's design is therefore grounded in the need for self-supervised robust anomaly detection that can
+adapt dynamically, prioritize rare templates, and require no annotation.
+
+
+
+The foundational motivation for ALogSCAN arises from long-standing problems in practical cloud log anomaly
+detection. Cloud infrastructure produces logs at huge scale. These logs encode system events, application
+state transitions, warnings, errors, telemetry, and intermediate operational details. In theory, logs are
+rich sources of information for detecting failures, misconfigurations, or malicious behaviors. However,
+three major challenges make naive ML approaches fail:
+
+1. Log instability.
+   Cloud systems evolve continuously: deployments occur, microservices are updated, dependencies change,
+   configuration flags alter execution paths, and new error-handling code introduces new log templates.
+   As a result, the distribution of log templates drifts over time. A model trained on past logs may easily
+   misinterpret new templates as anomalous or, worse, may not recognize new types of anomalies embedded
+   in new templates. Template drift is one of the biggest unstated reasons ML log detectors fail in real
+   production.
+
+2. Class imbalance.
+   Normal behavior dominates logs. Rare events include error conditions, unusual sequences, or genuine
+   anomalies. Training a model on imbalanced data usually leads to the model learning only dominant
+   frequent patterns. These frequent templates overshadow the semantic contribution of rare templates.
+   Because anomalies often manifest through rare sequences or unusual combinations of templates,
+   a model that is biased toward dominant patterns will systematically fail.
+
+3. Lack of labels.
+   Labeling logs is extremely expensive. A single cloud system may generate billions of logs per day.
+   Labeling requires deep domain expertise, context, runbook knowledge, correlation with other metrics,
+   and even internal system knowledge. Supervised learning is practically impossible.
+
+ALogSCAN's design is therefore grounded in the need for self-supervised robust anomaly detection that can
+adapt dynamically, prioritize rare templates, and require no annotation.
+
+
+
+The foundational motivation for ALogSCAN arises from long-standing problems in practical cloud log anomaly
+detection. Cloud infrastructure produces logs at huge scale. These logs encode system events, application
+state transitions, warnings, errors, telemetry, and intermediate operational details. In theory, logs are
+rich sources of information for detecting failures, misconfigurations, or malicious behaviors. However,
+three major challenges make naive ML approaches fail:
+
+1. Log instability.
+   Cloud systems evolve continuously: deployments occur, microservices are updated, dependencies change,
+   configuration flags alter execution paths, and new error-handling code introduces new log templates.
+   As a result, the distribution of log templates drifts over time. A model trained on past logs may easily
+   misinterpret new templates as anomalous or, worse, may not recognize new types of anomalies embedded
+   in new templates. Template drift is one of the biggest unstated reasons ML log detectors fail in real
+   production.
+
+2. Class imbalance.
+   Normal behavior dominates logs. Rare events include error conditions, unusual sequences, or genuine
+   anomalies. Training a model on imbalanced data usually leads to the model learning only dominant
+   frequent patterns. These frequent templates overshadow the semantic contribution of rare templates.
+   Because anomalies often manifest through rare sequences or unusual combinations of templates,
+   a model that is biased toward dominant patterns will systematically fail.
+
+3. Lack of labels.
+   Labeling logs is extremely expensive. A single cloud system may generate billions of logs per day.
+   Labeling requires deep domain expertise, context, runbook knowledge, correlation with other metrics,
+   and even internal system knowledge. Supervised learning is practically impossible.
+
+ALogSCAN's design is therefore grounded in the need for self-supervised robust anomaly detection that can
+adapt dynamically, prioritize rare templates, and require no annotation.
+
+
+
+The foundational motivation for ALogSCAN arises from long-standing problems in practical cloud log anomaly
+detection. Cloud infrastructure produces logs at huge scale. These logs encode system events, application
+state transitions, warnings, errors, telemetry, and intermediate operational details. In theory, logs are
+rich sources of information for detecting failures, misconfigurations, or malicious behaviors. However,
+three major challenges make naive ML approaches fail:
+
+1. Log instability.
+   Cloud systems evolve continuously: deployments occur, microservices are updated, dependencies change,
+   configuration flags alter execution paths, and new error-handling code introduces new log templates.
+   As a result, the distribution of log templates drifts over time. A model trained on past logs may easily
+   misinterpret new templates as anomalous or, worse, may not recognize new types of anomalies embedded
+   in new templates. Template drift is one of the biggest unstated reasons ML log detectors fail in real
+   production.
+
+2. Class imbalance.
+   Normal behavior dominates logs. Rare events include error conditions, unusual sequences, or genuine
+   anomalies. Training a model on imbalanced data usually leads to the model learning only dominant
+   frequent patterns. These frequent templates overshadow the semantic contribution of rare templates.
+   Because anomalies often manifest through rare sequences or unusual combinations of templates,
+   a model that is biased toward dominant patterns will systematically fail.
+
+3. Lack of labels.
+   Labeling logs is extremely expensive. A single cloud system may generate billions of logs per day.
+   Labeling requires deep domain expertise, context, runbook knowledge, correlation with other metrics,
+   and even internal system knowledge. Supervised learning is practically impossible.
+
+ALogSCAN's design is therefore grounded in the need for self-supervised robust anomaly detection that can
+adapt dynamically, prioritize rare templates, and require no annotation.
+
+
+
+The foundational motivation for ALogSCAN arises from long-standing problems in practical cloud log anomaly
+detection. Cloud infrastructure produces logs at huge scale. These logs encode system events, application
+state transitions, warnings, errors, telemetry, and intermediate operational details. In theory, logs are
+rich sources of information for detecting failures, misconfigurations, or malicious behaviors. However,
+three major challenges make naive ML approaches fail:
+
+1. Log instability.
+   Cloud systems evolve continuously: deployments occur, microservices are updated, dependencies change,
+   configuration flags alter execution paths, and new error-handling code introduces new log templates.
+   As a result, the distribution of log templates drifts over time. A model trained on past logs may easily
+   misinterpret new templates as anomalous or, worse, may not recognize new types of anomalies embedded
+   in new templates. Template drift is one of the biggest unstated reasons ML log detectors fail in real
+   production.
+
+2. Class imbalance.
+   Normal behavior dominates logs. Rare events include error conditions, unusual sequences, or genuine
+   anomalies. Training a model on imbalanced data usually leads to the model learning only dominant
+   frequent patterns. These frequent templates overshadow the semantic contribution of rare templates.
+   Because anomalies often manifest through rare sequences or unusual combinations of templates,
+   a model that is biased toward dominant patterns will systematically fail.
+
+3. Lack of labels.
+   Labeling logs is extremely expensive. A single cloud system may generate billions of logs per day.
+   Labeling requires deep domain expertise, context, runbook knowledge, correlation with other metrics,
+   and even internal system knowledge. Supervised learning is practically impossible.
+
+ALogSCAN's design is therefore grounded in the need for self-supervised robust anomaly detection that can
+adapt dynamically, prioritize rare templates, and require no annotation.
+
+
+
+The foundational motivation for ALogSCAN arises from long-standing problems in practical cloud log anomaly
+detection. Cloud infrastructure produces logs at huge scale. These logs encode system events, application
+state transitions, warnings, errors, telemetry, and intermediate operational details. In theory, logs are
+rich sources of information for detecting failures, misconfigurations, or malicious behaviors. However,
+three major challenges make naive ML approaches fail:
+
+1. Log instability.
+   Cloud systems evolve continuously: deployments occur, microservices are updated, dependencies change,
+   configuration flags alter execution paths, and new error-handling code introduces new log templates.
+   As a result, the distribution of log templates drifts over time. A model trained on past logs may easily
+   misinterpret new templates as anomalous or, worse, may not recognize new types of anomalies embedded
+   in new templates. Template drift is one of the biggest unstated reasons ML log detectors fail in real
+   production.
+
+2. Class imbalance.
+   Normal behavior dominates logs. Rare events include error conditions, unusual sequences, or genuine
+   anomalies. Training a model on imbalanced data usually leads to the model learning only dominant
+   frequent patterns. These frequent templates overshadow the semantic contribution of rare templates.
+   Because anomalies often manifest through rare sequences or unusual combinations of templates,
+   a model that is biased toward dominant patterns will systematically fail.
+
+3. Lack of labels.
+   Labeling logs is extremely expensive. A single cloud system may generate billions of logs per day.
+   Labeling requires deep domain expertise, context, runbook knowledge, correlation with other metrics,
+   and even internal system knowledge. Supervised learning is practically impossible.
+
+ALogSCAN's design is therefore grounded in the need for self-supervised robust anomaly detection that can
+adapt dynamically, prioritize rare templates, and require no annotation.
+
+
+
+The foundational motivation for ALogSCAN arises from long-standing problems in practical cloud log anomaly
+detection. Cloud infrastructure produces logs at huge scale. These logs encode system events, application
+state transitions, warnings, errors, telemetry, and intermediate operational details. In theory, logs are
+rich sources of information for detecting failures, misconfigurations, or malicious behaviors. However,
+three major challenges make naive ML approaches fail:
+
+1. Log instability.
+   Cloud systems evolve continuously: deployments occur, microservices are updated, dependencies change,
+   configuration flags alter execution paths, and new error-handling code introduces new log templates.
+   As a result, the distribution of log templates drifts over time. A model trained on past logs may easily
+   misinterpret new templates as anomalous or, worse, may not recognize new types of anomalies embedded
+   in new templates. Template drift is one of the biggest unstated reasons ML log detectors fail in real
+   production.
+
+2. Class imbalance.
+   Normal behavior dominates logs. Rare events include error conditions, unusual sequences, or genuine
+   anomalies. Training a model on imbalanced data usually leads to the model learning only dominant
+   frequent patterns. These frequent templates overshadow the semantic contribution of rare templates.
+   Because anomalies often manifest through rare sequences or unusual combinations of templates,
+   a model that is biased toward dominant patterns will systematically fail.
+
+3. Lack of labels.
+   Labeling logs is extremely expensive. A single cloud system may generate billions of logs per day.
+   Labeling requires deep domain expertise, context, runbook knowledge, correlation with other metrics,
+   and even internal system knowledge. Supervised learning is practically impossible.
+
+ALogSCAN's design is therefore grounded in the need for self-supervised robust anomaly detection that can
+adapt dynamically, prioritize rare templates, and require no annotation.
+
+
+
+The foundational motivation for ALogSCAN arises from long-standing problems in practical cloud log anomaly
+detection. Cloud infrastructure produces logs at huge scale. These logs encode system events, application
+state transitions, warnings, errors, telemetry, and intermediate operational details. In theory, logs are
+rich sources of information for detecting failures, misconfigurations, or malicious behaviors. However,
+three major challenges make naive ML approaches fail:
+
+1. Log instability.
+   Cloud systems evolve continuously: deployments occur, microservices are updated, dependencies change,
+   configuration flags alter execution paths, and new error-handling code introduces new log templates.
+   As a result, the distribution of log templates drifts over time. A model trained on past logs may easily
+   misinterpret new templates as anomalous or, worse, may not recognize new types of anomalies embedded
+   in new templates. Template drift is one of the biggest unstated reasons ML log detectors fail in real
+   production.
+
+2. Class imbalance.
+   Normal behavior dominates logs. Rare events include error conditions, unusual sequences, or genuine
+   anomalies. Training a model on imbalanced data usually leads to the model learning only dominant
+   frequent patterns. These frequent templates overshadow the semantic contribution of rare templates.
+   Because anomalies often manifest through rare sequences or unusual combinations of templates,
+   a model that is biased toward dominant patterns will systematically fail.
+
+3. Lack of labels.
+   Labeling logs is extremely expensive. A single cloud system may generate billions of logs per day.
+   Labeling requires deep domain expertise, context, runbook knowledge, correlation with other metrics,
+   and even internal system knowledge. Supervised learning is practically impossible.
+
+ALogSCAN's design is therefore grounded in the need for self-supervised robust anomaly detection that can
+adapt dynamically, prioritize rare templates, and require no annotation.
+
+
+
+
+DFLF — DYNAMIC FREQUENCY-BASED LOG FILTERING (EXPANDED)
+=======================================================
+
+
+Dynamic Frequency-based Log Filtering (DFLF) is the core component enabling ALogSCAN to combat log instability
+and class imbalance. DFLF's central principle is to decompose log sequences into frequency-based views.
+
+A log sequence S = [θ1, θ2, ..., θn] consists of log templates extracted by a parser. Each template has a
+frequency within the current batch. Instead of treating all templates equally, DFLF splits S into two views:
+
+- Frequent view F(S): retains only templates whose batch-level frequency is above a threshold κ.
+- Infrequent view I(S): retains only templates whose frequency is below κ.
+
+This separation ensures representation is not dominated by extremely common templates. Frequent templates are
+usually structural boilerplate: heartbeats, status messages, periodic sync logs, authentication renewals, etc.
+They carry little anomaly information. Infrequent templates, conversely, often encode rare behaviors—some are
+benign, others are anomalous, but all are crucial to understand rare-event dynamics.
+
+DFLF introduces stochasticity by sampling κ from a set each batch. This prevents overfitting to a fixed split
+and allows ALogSCAN to adapt to changes in global template frequency distribution. This stochastic filtering is
+a major innovation, acting like data augmentation for log frequency structure.
+
+
+
+Dynamic Frequency-based Log Filtering (DFLF) is the core component enabling ALogSCAN to combat log instability
+and class imbalance. DFLF's central principle is to decompose log sequences into frequency-based views.
+
+A log sequence S = [θ1, θ2, ..., θn] consists of log templates extracted by a parser. Each template has a
+frequency within the current batch. Instead of treating all templates equally, DFLF splits S into two views:
+
+- Frequent view F(S): retains only templates whose batch-level frequency is above a threshold κ.
+- Infrequent view I(S): retains only templates whose frequency is below κ.
+
+This separation ensures representation is not dominated by extremely common templates. Frequent templates are
+usually structural boilerplate: heartbeats, status messages, periodic sync logs, authentication renewals, etc.
+They carry little anomaly information. Infrequent templates, conversely, often encode rare behaviors—some are
+benign, others are anomalous, but all are crucial to understand rare-event dynamics.
+
+DFLF introduces stochasticity by sampling κ from a set each batch. This prevents overfitting to a fixed split
+and allows ALogSCAN to adapt to changes in global template frequency distribution. This stochastic filtering is
+a major innovation, acting like data augmentation for log frequency structure.
+
+
+
+Dynamic Frequency-based Log Filtering (DFLF) is the core component enabling ALogSCAN to combat log instability
+and class imbalance. DFLF's central principle is to decompose log sequences into frequency-based views.
+
+A log sequence S = [θ1, θ2, ..., θn] consists of log templates extracted by a parser. Each template has a
+frequency within the current batch. Instead of treating all templates equally, DFLF splits S into two views:
+
+- Frequent view F(S): retains only templates whose batch-level frequency is above a threshold κ.
+- Infrequent view I(S): retains only templates whose frequency is below κ.
+
+This separation ensures representation is not dominated by extremely common templates. Frequent templates are
+usually structural boilerplate: heartbeats, status messages, periodic sync logs, authentication renewals, etc.
+They carry little anomaly information. Infrequent templates, conversely, often encode rare behaviors—some are
+benign, others are anomalous, but all are crucial to understand rare-event dynamics.
+
+DFLF introduces stochasticity by sampling κ from a set each batch. This prevents overfitting to a fixed split
+and allows ALogSCAN to adapt to changes in global template frequency distribution. This stochastic filtering is
+a major innovation, acting like data augmentation for log frequency structure.
+
+
+
+Dynamic Frequency-based Log Filtering (DFLF) is the core component enabling ALogSCAN to combat log instability
+and class imbalance. DFLF's central principle is to decompose log sequences into frequency-based views.
+
+A log sequence S = [θ1, θ2, ..., θn] consists of log templates extracted by a parser. Each template has a
+frequency within the current batch. Instead of treating all templates equally, DFLF splits S into two views:
+
+- Frequent view F(S): retains only templates whose batch-level frequency is above a threshold κ.
+- Infrequent view I(S): retains only templates whose frequency is below κ.
+
+This separation ensures representation is not dominated by extremely common templates. Frequent templates are
+usually structural boilerplate: heartbeats, status messages, periodic sync logs, authentication renewals, etc.
+They carry little anomaly information. Infrequent templates, conversely, often encode rare behaviors—some are
+benign, others are anomalous, but all are crucial to understand rare-event dynamics.
+
+DFLF introduces stochasticity by sampling κ from a set each batch. This prevents overfitting to a fixed split
+and allows ALogSCAN to adapt to changes in global template frequency distribution. This stochastic filtering is
+a major innovation, acting like data augmentation for log frequency structure.
+
+
+
+Dynamic Frequency-based Log Filtering (DFLF) is the core component enabling ALogSCAN to combat log instability
+and class imbalance. DFLF's central principle is to decompose log sequences into frequency-based views.
+
+A log sequence S = [θ1, θ2, ..., θn] consists of log templates extracted by a parser. Each template has a
+frequency within the current batch. Instead of treating all templates equally, DFLF splits S into two views:
+
+- Frequent view F(S): retains only templates whose batch-level frequency is above a threshold κ.
+- Infrequent view I(S): retains only templates whose frequency is below κ.
+
+This separation ensures representation is not dominated by extremely common templates. Frequent templates are
+usually structural boilerplate: heartbeats, status messages, periodic sync logs, authentication renewals, etc.
+They carry little anomaly information. Infrequent templates, conversely, often encode rare behaviors—some are
+benign, others are anomalous, but all are crucial to understand rare-event dynamics.
+
+DFLF introduces stochasticity by sampling κ from a set each batch. This prevents overfitting to a fixed split
+and allows ALogSCAN to adapt to changes in global template frequency distribution. This stochastic filtering is
+a major innovation, acting like data augmentation for log frequency structure.
+
+
+
+Dynamic Frequency-based Log Filtering (DFLF) is the core component enabling ALogSCAN to combat log instability
+and class imbalance. DFLF's central principle is to decompose log sequences into frequency-based views.
+
+A log sequence S = [θ1, θ2, ..., θn] consists of log templates extracted by a parser. Each template has a
+frequency within the current batch. Instead of treating all templates equally, DFLF splits S into two views:
+
+- Frequent view F(S): retains only templates whose batch-level frequency is above a threshold κ.
+- Infrequent view I(S): retains only templates whose frequency is below κ.
+
+This separation ensures representation is not dominated by extremely common templates. Frequent templates are
+usually structural boilerplate: heartbeats, status messages, periodic sync logs, authentication renewals, etc.
+They carry little anomaly information. Infrequent templates, conversely, often encode rare behaviors—some are
+benign, others are anomalous, but all are crucial to understand rare-event dynamics.
+
+DFLF introduces stochasticity by sampling κ from a set each batch. This prevents overfitting to a fixed split
+and allows ALogSCAN to adapt to changes in global template frequency distribution. This stochastic filtering is
+a major innovation, acting like data augmentation for log frequency structure.
+
+
+
+Dynamic Frequency-based Log Filtering (DFLF) is the core component enabling ALogSCAN to combat log instability
+and class imbalance. DFLF's central principle is to decompose log sequences into frequency-based views.
+
+A log sequence S = [θ1, θ2, ..., θn] consists of log templates extracted by a parser. Each template has a
+frequency within the current batch. Instead of treating all templates equally, DFLF splits S into two views:
+
+- Frequent view F(S): retains only templates whose batch-level frequency is above a threshold κ.
+- Infrequent view I(S): retains only templates whose frequency is below κ.
+
+This separation ensures representation is not dominated by extremely common templates. Frequent templates are
+usually structural boilerplate: heartbeats, status messages, periodic sync logs, authentication renewals, etc.
+They carry little anomaly information. Infrequent templates, conversely, often encode rare behaviors—some are
+benign, others are anomalous, but all are crucial to understand rare-event dynamics.
+
+DFLF introduces stochasticity by sampling κ from a set each batch. This prevents overfitting to a fixed split
+and allows ALogSCAN to adapt to changes in global template frequency distribution. This stochastic filtering is
+a major innovation, acting like data augmentation for log frequency structure.
+
+
+
+Dynamic Frequency-based Log Filtering (DFLF) is the core component enabling ALogSCAN to combat log instability
+and class imbalance. DFLF's central principle is to decompose log sequences into frequency-based views.
+
+A log sequence S = [θ1, θ2, ..., θn] consists of log templates extracted by a parser. Each template has a
+frequency within the current batch. Instead of treating all templates equally, DFLF splits S into two views:
+
+- Frequent view F(S): retains only templates whose batch-level frequency is above a threshold κ.
+- Infrequent view I(S): retains only templates whose frequency is below κ.
+
+This separation ensures representation is not dominated by extremely common templates. Frequent templates are
+usually structural boilerplate: heartbeats, status messages, periodic sync logs, authentication renewals, etc.
+They carry little anomaly information. Infrequent templates, conversely, often encode rare behaviors—some are
+benign, others are anomalous, but all are crucial to understand rare-event dynamics.
+
+DFLF introduces stochasticity by sampling κ from a set each batch. This prevents overfitting to a fixed split
+and allows ALogSCAN to adapt to changes in global template frequency distribution. This stochastic filtering is
+a major innovation, acting like data augmentation for log frequency structure.
+
+
+
+Dynamic Frequency-based Log Filtering (DFLF) is the core component enabling ALogSCAN to combat log instability
+and class imbalance. DFLF's central principle is to decompose log sequences into frequency-based views.
+
+A log sequence S = [θ1, θ2, ..., θn] consists of log templates extracted by a parser. Each template has a
+frequency within the current batch. Instead of treating all templates equally, DFLF splits S into two views:
+
+- Frequent view F(S): retains only templates whose batch-level frequency is above a threshold κ.
+- Infrequent view I(S): retains only templates whose frequency is below κ.
+
+This separation ensures representation is not dominated by extremely common templates. Frequent templates are
+usually structural boilerplate: heartbeats, status messages, periodic sync logs, authentication renewals, etc.
+They carry little anomaly information. Infrequent templates, conversely, often encode rare behaviors—some are
+benign, others are anomalous, but all are crucial to understand rare-event dynamics.
+
+DFLF introduces stochasticity by sampling κ from a set each batch. This prevents overfitting to a fixed split
+and allows ALogSCAN to adapt to changes in global template frequency distribution. This stochastic filtering is
+a major innovation, acting like data augmentation for log frequency structure.
+
+
+
+Dynamic Frequency-based Log Filtering (DFLF) is the core component enabling ALogSCAN to combat log instability
+and class imbalance. DFLF's central principle is to decompose log sequences into frequency-based views.
+
+A log sequence S = [θ1, θ2, ..., θn] consists of log templates extracted by a parser. Each template has a
+frequency within the current batch. Instead of treating all templates equally, DFLF splits S into two views:
+
+- Frequent view F(S): retains only templates whose batch-level frequency is above a threshold κ.
+- Infrequent view I(S): retains only templates whose frequency is below κ.
+
+This separation ensures representation is not dominated by extremely common templates. Frequent templates are
+usually structural boilerplate: heartbeats, status messages, periodic sync logs, authentication renewals, etc.
+They carry little anomaly information. Infrequent templates, conversely, often encode rare behaviors—some are
+benign, others are anomalous, but all are crucial to understand rare-event dynamics.
+
+DFLF introduces stochasticity by sampling κ from a set each batch. This prevents overfitting to a fixed split
+and allows ALogSCAN to adapt to changes in global template frequency distribution. This stochastic filtering is
+a major innovation, acting like data augmentation for log frequency structure.
+
+
+
+Dynamic Frequency-based Log Filtering (DFLF) is the core component enabling ALogSCAN to combat log instability
+and class imbalance. DFLF's central principle is to decompose log sequences into frequency-based views.
+
+A log sequence S = [θ1, θ2, ..., θn] consists of log templates extracted by a parser. Each template has a
+frequency within the current batch. Instead of treating all templates equally, DFLF splits S into two views:
+
+- Frequent view F(S): retains only templates whose batch-level frequency is above a threshold κ.
+- Infrequent view I(S): retains only templates whose frequency is below κ.
+
+This separation ensures representation is not dominated by extremely common templates. Frequent templates are
+usually structural boilerplate: heartbeats, status messages, periodic sync logs, authentication renewals, etc.
+They carry little anomaly information. Infrequent templates, conversely, often encode rare behaviors—some are
+benign, others are anomalous, but all are crucial to understand rare-event dynamics.
+
+DFLF introduces stochasticity by sampling κ from a set each batch. This prevents overfitting to a fixed split
+and allows ALogSCAN to adapt to changes in global template frequency distribution. This stochastic filtering is
+a major innovation, acting like data augmentation for log frequency structure.
+
+
+
+Dynamic Frequency-based Log Filtering (DFLF) is the core component enabling ALogSCAN to combat log instability
+and class imbalance. DFLF's central principle is to decompose log sequences into frequency-based views.
+
+A log sequence S = [θ1, θ2, ..., θn] consists of log templates extracted by a parser. Each template has a
+frequency within the current batch. Instead of treating all templates equally, DFLF splits S into two views:
+
+- Frequent view F(S): retains only templates whose batch-level frequency is above a threshold κ.
+- Infrequent view I(S): retains only templates whose frequency is below κ.
+
+This separation ensures representation is not dominated by extremely common templates. Frequent templates are
+usually structural boilerplate: heartbeats, status messages, periodic sync logs, authentication renewals, etc.
+They carry little anomaly information. Infrequent templates, conversely, often encode rare behaviors—some are
+benign, others are anomalous, but all are crucial to understand rare-event dynamics.
+
+DFLF introduces stochasticity by sampling κ from a set each batch. This prevents overfitting to a fixed split
+and allows ALogSCAN to adapt to changes in global template frequency distribution. This stochastic filtering is
+a major innovation, acting like data augmentation for log frequency structure.
+
+
+
+
+IRCI — INFREQUENT-TEMPLATE RECONSTRUCTION MECHANISM
+===================================================
+
+
+Infrequent Reconstruction using Complete Input (IRCI) is the reconstruction mechanism in ALogSCAN's AE.
+The AE receives the full sequence as input but computes reconstruction loss only over infrequent templates.
+This forces the AE to focus representational capacity on rare events rather than waste parameters memorizing
+common ones.
+
+Why is this important? If reconstruction were computed on all templates, the AE would naturally prioritize
+frequent templates, because reconstruction loss would be dominated by them. Frequent templates appear in large
+quantities, contributing massive gradient influence. Rare templates, though crucial, would contribute almost
+no gradient signal relative to frequent ones. IRCI solves this by masking reconstruction loss to include only
+infrequent templates.
+
+This not only increases anomaly sensitivity, but also improves AE's generalization to newly-emerging templates,
+because the AE becomes accustomed to representing rare or unusual patterns.
+
+
+
+Infrequent Reconstruction using Complete Input (IRCI) is the reconstruction mechanism in ALogSCAN's AE.
+The AE receives the full sequence as input but computes reconstruction loss only over infrequent templates.
+This forces the AE to focus representational capacity on rare events rather than waste parameters memorizing
+common ones.
+
+Why is this important? If reconstruction were computed on all templates, the AE would naturally prioritize
+frequent templates, because reconstruction loss would be dominated by them. Frequent templates appear in large
+quantities, contributing massive gradient influence. Rare templates, though crucial, would contribute almost
+no gradient signal relative to frequent ones. IRCI solves this by masking reconstruction loss to include only
+infrequent templates.
+
+This not only increases anomaly sensitivity, but also improves AE's generalization to newly-emerging templates,
+because the AE becomes accustomed to representing rare or unusual patterns.
+
+
+
+Infrequent Reconstruction using Complete Input (IRCI) is the reconstruction mechanism in ALogSCAN's AE.
+The AE receives the full sequence as input but computes reconstruction loss only over infrequent templates.
+This forces the AE to focus representational capacity on rare events rather than waste parameters memorizing
+common ones.
+
+Why is this important? If reconstruction were computed on all templates, the AE would naturally prioritize
+frequent templates, because reconstruction loss would be dominated by them. Frequent templates appear in large
+quantities, contributing massive gradient influence. Rare templates, though crucial, would contribute almost
+no gradient signal relative to frequent ones. IRCI solves this by masking reconstruction loss to include only
+infrequent templates.
+
+This not only increases anomaly sensitivity, but also improves AE's generalization to newly-emerging templates,
+because the AE becomes accustomed to representing rare or unusual patterns.
+
+
+
+Infrequent Reconstruction using Complete Input (IRCI) is the reconstruction mechanism in ALogSCAN's AE.
+The AE receives the full sequence as input but computes reconstruction loss only over infrequent templates.
+This forces the AE to focus representational capacity on rare events rather than waste parameters memorizing
+common ones.
+
+Why is this important? If reconstruction were computed on all templates, the AE would naturally prioritize
+frequent templates, because reconstruction loss would be dominated by them. Frequent templates appear in large
+quantities, contributing massive gradient influence. Rare templates, though crucial, would contribute almost
+no gradient signal relative to frequent ones. IRCI solves this by masking reconstruction loss to include only
+infrequent templates.
+
+This not only increases anomaly sensitivity, but also improves AE's generalization to newly-emerging templates,
+because the AE becomes accustomed to representing rare or unusual patterns.
+
+
+
+Infrequent Reconstruction using Complete Input (IRCI) is the reconstruction mechanism in ALogSCAN's AE.
+The AE receives the full sequence as input but computes reconstruction loss only over infrequent templates.
+This forces the AE to focus representational capacity on rare events rather than waste parameters memorizing
+common ones.
+
+Why is this important? If reconstruction were computed on all templates, the AE would naturally prioritize
+frequent templates, because reconstruction loss would be dominated by them. Frequent templates appear in large
+quantities, contributing massive gradient influence. Rare templates, though crucial, would contribute almost
+no gradient signal relative to frequent ones. IRCI solves this by masking reconstruction loss to include only
+infrequent templates.
+
+This not only increases anomaly sensitivity, but also improves AE's generalization to newly-emerging templates,
+because the AE becomes accustomed to representing rare or unusual patterns.
+
+
+
+Infrequent Reconstruction using Complete Input (IRCI) is the reconstruction mechanism in ALogSCAN's AE.
+The AE receives the full sequence as input but computes reconstruction loss only over infrequent templates.
+This forces the AE to focus representational capacity on rare events rather than waste parameters memorizing
+common ones.
+
+Why is this important? If reconstruction were computed on all templates, the AE would naturally prioritize
+frequent templates, because reconstruction loss would be dominated by them. Frequent templates appear in large
+quantities, contributing massive gradient influence. Rare templates, though crucial, would contribute almost
+no gradient signal relative to frequent ones. IRCI solves this by masking reconstruction loss to include only
+infrequent templates.
+
+This not only increases anomaly sensitivity, but also improves AE's generalization to newly-emerging templates,
+because the AE becomes accustomed to representing rare or unusual patterns.
+
+
+
+Infrequent Reconstruction using Complete Input (IRCI) is the reconstruction mechanism in ALogSCAN's AE.
+The AE receives the full sequence as input but computes reconstruction loss only over infrequent templates.
+This forces the AE to focus representational capacity on rare events rather than waste parameters memorizing
+common ones.
+
+Why is this important? If reconstruction were computed on all templates, the AE would naturally prioritize
+frequent templates, because reconstruction loss would be dominated by them. Frequent templates appear in large
+quantities, contributing massive gradient influence. Rare templates, though crucial, would contribute almost
+no gradient signal relative to frequent ones. IRCI solves this by masking reconstruction loss to include only
+infrequent templates.
+
+This not only increases anomaly sensitivity, but also improves AE's generalization to newly-emerging templates,
+because the AE becomes accustomed to representing rare or unusual patterns.
+
+
+
+Infrequent Reconstruction using Complete Input (IRCI) is the reconstruction mechanism in ALogSCAN's AE.
+The AE receives the full sequence as input but computes reconstruction loss only over infrequent templates.
+This forces the AE to focus representational capacity on rare events rather than waste parameters memorizing
+common ones.
+
+Why is this important? If reconstruction were computed on all templates, the AE would naturally prioritize
+frequent templates, because reconstruction loss would be dominated by them. Frequent templates appear in large
+quantities, contributing massive gradient influence. Rare templates, though crucial, would contribute almost
+no gradient signal relative to frequent ones. IRCI solves this by masking reconstruction loss to include only
+infrequent templates.
+
+This not only increases anomaly sensitivity, but also improves AE's generalization to newly-emerging templates,
+because the AE becomes accustomed to representing rare or unusual patterns.
+
+
+
+Infrequent Reconstruction using Complete Input (IRCI) is the reconstruction mechanism in ALogSCAN's AE.
+The AE receives the full sequence as input but computes reconstruction loss only over infrequent templates.
+This forces the AE to focus representational capacity on rare events rather than waste parameters memorizing
+common ones.
+
+Why is this important? If reconstruction were computed on all templates, the AE would naturally prioritize
+frequent templates, because reconstruction loss would be dominated by them. Frequent templates appear in large
+quantities, contributing massive gradient influence. Rare templates, though crucial, would contribute almost
+no gradient signal relative to frequent ones. IRCI solves this by masking reconstruction loss to include only
+infrequent templates.
+
+This not only increases anomaly sensitivity, but also improves AE's generalization to newly-emerging templates,
+because the AE becomes accustomed to representing rare or unusual patterns.
+
+
+
+Infrequent Reconstruction using Complete Input (IRCI) is the reconstruction mechanism in ALogSCAN's AE.
+The AE receives the full sequence as input but computes reconstruction loss only over infrequent templates.
+This forces the AE to focus representational capacity on rare events rather than waste parameters memorizing
+common ones.
+
+Why is this important? If reconstruction were computed on all templates, the AE would naturally prioritize
+frequent templates, because reconstruction loss would be dominated by them. Frequent templates appear in large
+quantities, contributing massive gradient influence. Rare templates, though crucial, would contribute almost
+no gradient signal relative to frequent ones. IRCI solves this by masking reconstruction loss to include only
+infrequent templates.
+
+This not only increases anomaly sensitivity, but also improves AE's generalization to newly-emerging templates,
+because the AE becomes accustomed to representing rare or unusual patterns.
+
+
+
+
+KNOWLEDGE DISTILLATION — AE TEACHER AND EO STUDENT
+==================================================
+
+
+Knowledge distillation in ALogSCAN is used in an unusual way: instead of compressing a large model into a
+smaller one, KD is used to create an asymmetric dual-network system where the AE (teacher) learns rich full-
+sequence semantics, while the EO (student) learns to approximate AE’s latent representation using only the
+frequent-view input. The teacher sees everything; the student sees only the filtered view.
+
+The critical insight: if EO can correctly predict AE's representation from frequent templates alone, then the
+current sequence is consistent with what the AE expects. If EO fails significantly, it indicates the AE used
+information not present in frequent templates—i.e., the sequence contains unusual or rare behaviors that
+undermine predictability.
+
+Thus the prediction loss LP = ||Z - Z'||² becomes the anomaly score.
+
+This design is elegant: AE learns semantic representation; EO learns how predictable the full sequence is from
+its frequent structure. Any mismatch encodes anomaly likelihood.
+
+
+
+Knowledge distillation in ALogSCAN is used in an unusual way: instead of compressing a large model into a
+smaller one, KD is used to create an asymmetric dual-network system where the AE (teacher) learns rich full-
+sequence semantics, while the EO (student) learns to approximate AE’s latent representation using only the
+frequent-view input. The teacher sees everything; the student sees only the filtered view.
+
+The critical insight: if EO can correctly predict AE's representation from frequent templates alone, then the
+current sequence is consistent with what the AE expects. If EO fails significantly, it indicates the AE used
+information not present in frequent templates—i.e., the sequence contains unusual or rare behaviors that
+undermine predictability.
+
+Thus the prediction loss LP = ||Z - Z'||² becomes the anomaly score.
+
+This design is elegant: AE learns semantic representation; EO learns how predictable the full sequence is from
+its frequent structure. Any mismatch encodes anomaly likelihood.
+
+
+
+Knowledge distillation in ALogSCAN is used in an unusual way: instead of compressing a large model into a
+smaller one, KD is used to create an asymmetric dual-network system where the AE (teacher) learns rich full-
+sequence semantics, while the EO (student) learns to approximate AE’s latent representation using only the
+frequent-view input. The teacher sees everything; the student sees only the filtered view.
+
+The critical insight: if EO can correctly predict AE's representation from frequent templates alone, then the
+current sequence is consistent with what the AE expects. If EO fails significantly, it indicates the AE used
+information not present in frequent templates—i.e., the sequence contains unusual or rare behaviors that
+undermine predictability.
+
+Thus the prediction loss LP = ||Z - Z'||² becomes the anomaly score.
+
+This design is elegant: AE learns semantic representation; EO learns how predictable the full sequence is from
+its frequent structure. Any mismatch encodes anomaly likelihood.
+
+
+
+Knowledge distillation in ALogSCAN is used in an unusual way: instead of compressing a large model into a
+smaller one, KD is used to create an asymmetric dual-network system where the AE (teacher) learns rich full-
+sequence semantics, while the EO (student) learns to approximate AE’s latent representation using only the
+frequent-view input. The teacher sees everything; the student sees only the filtered view.
+
+The critical insight: if EO can correctly predict AE's representation from frequent templates alone, then the
+current sequence is consistent with what the AE expects. If EO fails significantly, it indicates the AE used
+information not present in frequent templates—i.e., the sequence contains unusual or rare behaviors that
+undermine predictability.
+
+Thus the prediction loss LP = ||Z - Z'||² becomes the anomaly score.
+
+This design is elegant: AE learns semantic representation; EO learns how predictable the full sequence is from
+its frequent structure. Any mismatch encodes anomaly likelihood.
+
+
+
+Knowledge distillation in ALogSCAN is used in an unusual way: instead of compressing a large model into a
+smaller one, KD is used to create an asymmetric dual-network system where the AE (teacher) learns rich full-
+sequence semantics, while the EO (student) learns to approximate AE’s latent representation using only the
+frequent-view input. The teacher sees everything; the student sees only the filtered view.
+
+The critical insight: if EO can correctly predict AE's representation from frequent templates alone, then the
+current sequence is consistent with what the AE expects. If EO fails significantly, it indicates the AE used
+information not present in frequent templates—i.e., the sequence contains unusual or rare behaviors that
+undermine predictability.
+
+Thus the prediction loss LP = ||Z - Z'||² becomes the anomaly score.
+
+This design is elegant: AE learns semantic representation; EO learns how predictable the full sequence is from
+its frequent structure. Any mismatch encodes anomaly likelihood.
+
+
+
+Knowledge distillation in ALogSCAN is used in an unusual way: instead of compressing a large model into a
+smaller one, KD is used to create an asymmetric dual-network system where the AE (teacher) learns rich full-
+sequence semantics, while the EO (student) learns to approximate AE’s latent representation using only the
+frequent-view input. The teacher sees everything; the student sees only the filtered view.
+
+The critical insight: if EO can correctly predict AE's representation from frequent templates alone, then the
+current sequence is consistent with what the AE expects. If EO fails significantly, it indicates the AE used
+information not present in frequent templates—i.e., the sequence contains unusual or rare behaviors that
+undermine predictability.
+
+Thus the prediction loss LP = ||Z - Z'||² becomes the anomaly score.
+
+This design is elegant: AE learns semantic representation; EO learns how predictable the full sequence is from
+its frequent structure. Any mismatch encodes anomaly likelihood.
+
+
+
+Knowledge distillation in ALogSCAN is used in an unusual way: instead of compressing a large model into a
+smaller one, KD is used to create an asymmetric dual-network system where the AE (teacher) learns rich full-
+sequence semantics, while the EO (student) learns to approximate AE’s latent representation using only the
+frequent-view input. The teacher sees everything; the student sees only the filtered view.
+
+The critical insight: if EO can correctly predict AE's representation from frequent templates alone, then the
+current sequence is consistent with what the AE expects. If EO fails significantly, it indicates the AE used
+information not present in frequent templates—i.e., the sequence contains unusual or rare behaviors that
+undermine predictability.
+
+Thus the prediction loss LP = ||Z - Z'||² becomes the anomaly score.
+
+This design is elegant: AE learns semantic representation; EO learns how predictable the full sequence is from
+its frequent structure. Any mismatch encodes anomaly likelihood.
+
+
+
+Knowledge distillation in ALogSCAN is used in an unusual way: instead of compressing a large model into a
+smaller one, KD is used to create an asymmetric dual-network system where the AE (teacher) learns rich full-
+sequence semantics, while the EO (student) learns to approximate AE’s latent representation using only the
+frequent-view input. The teacher sees everything; the student sees only the filtered view.
+
+The critical insight: if EO can correctly predict AE's representation from frequent templates alone, then the
+current sequence is consistent with what the AE expects. If EO fails significantly, it indicates the AE used
+information not present in frequent templates—i.e., the sequence contains unusual or rare behaviors that
+undermine predictability.
+
+Thus the prediction loss LP = ||Z - Z'||² becomes the anomaly score.
+
+This design is elegant: AE learns semantic representation; EO learns how predictable the full sequence is from
+its frequent structure. Any mismatch encodes anomaly likelihood.
+
+
+
+Knowledge distillation in ALogSCAN is used in an unusual way: instead of compressing a large model into a
+smaller one, KD is used to create an asymmetric dual-network system where the AE (teacher) learns rich full-
+sequence semantics, while the EO (student) learns to approximate AE’s latent representation using only the
+frequent-view input. The teacher sees everything; the student sees only the filtered view.
+
+The critical insight: if EO can correctly predict AE's representation from frequent templates alone, then the
+current sequence is consistent with what the AE expects. If EO fails significantly, it indicates the AE used
+information not present in frequent templates—i.e., the sequence contains unusual or rare behaviors that
+undermine predictability.
+
+Thus the prediction loss LP = ||Z - Z'||² becomes the anomaly score.
+
+This design is elegant: AE learns semantic representation; EO learns how predictable the full sequence is from
+its frequent structure. Any mismatch encodes anomaly likelihood.
+
+
+
+Knowledge distillation in ALogSCAN is used in an unusual way: instead of compressing a large model into a
+smaller one, KD is used to create an asymmetric dual-network system where the AE (teacher) learns rich full-
+sequence semantics, while the EO (student) learns to approximate AE’s latent representation using only the
+frequent-view input. The teacher sees everything; the student sees only the filtered view.
+
+The critical insight: if EO can correctly predict AE's representation from frequent templates alone, then the
+current sequence is consistent with what the AE expects. If EO fails significantly, it indicates the AE used
+information not present in frequent templates—i.e., the sequence contains unusual or rare behaviors that
+undermine predictability.
+
+Thus the prediction loss LP = ||Z - Z'||² becomes the anomaly score.
+
+This design is elegant: AE learns semantic representation; EO learns how predictable the full sequence is from
+its frequent structure. Any mismatch encodes anomaly likelihood.
+
+
+
+Knowledge distillation in ALogSCAN is used in an unusual way: instead of compressing a large model into a
+smaller one, KD is used to create an asymmetric dual-network system where the AE (teacher) learns rich full-
+sequence semantics, while the EO (student) learns to approximate AE’s latent representation using only the
+frequent-view input. The teacher sees everything; the student sees only the filtered view.
+
+The critical insight: if EO can correctly predict AE's representation from frequent templates alone, then the
+current sequence is consistent with what the AE expects. If EO fails significantly, it indicates the AE used
+information not present in frequent templates—i.e., the sequence contains unusual or rare behaviors that
+undermine predictability.
+
+Thus the prediction loss LP = ||Z - Z'||² becomes the anomaly score.
+
+This design is elegant: AE learns semantic representation; EO learns how predictable the full sequence is from
+its frequent structure. Any mismatch encodes anomaly likelihood.
+
+
+
+Knowledge distillation in ALogSCAN is used in an unusual way: instead of compressing a large model into a
+smaller one, KD is used to create an asymmetric dual-network system where the AE (teacher) learns rich full-
+sequence semantics, while the EO (student) learns to approximate AE’s latent representation using only the
+frequent-view input. The teacher sees everything; the student sees only the filtered view.
+
+The critical insight: if EO can correctly predict AE's representation from frequent templates alone, then the
+current sequence is consistent with what the AE expects. If EO fails significantly, it indicates the AE used
+information not present in frequent templates—i.e., the sequence contains unusual or rare behaviors that
+undermine predictability.
+
+Thus the prediction loss LP = ||Z - Z'||² becomes the anomaly score.
+
+This design is elegant: AE learns semantic representation; EO learns how predictable the full sequence is from
+its frequent structure. Any mismatch encodes anomaly likelihood.
+
+
+
+
+LOSS FUNCTIONS — LR, LC, LP (FULL DEPTH)
+========================================
+
+
+ALogSCAN uses three losses:
+
+1. LR — infrequent reconstruction loss
+   Computed on infrequent templates only. Forces AE to learn rare events.
+
+2. LC — one-class center loss
+   Encourages AE latent vectors for normal sequences to cluster around a center c. This clusters normals and
+   creates latent-space separation between normal and abnormal patterns.
+
+3. LP — prediction loss
+   The MSE between AE latent Z and EO latent Z'. This is the core anomaly score during inference.
+
+Total loss L = α LR + LC + LP, where α balances magnitudes.
+
+The three losses reinforce each other: LR teaches AE; LC stabilizes representation; LP creates discrepancy-based
+anomaly scoring.
+
+
+
+ALogSCAN uses three losses:
+
+1. LR — infrequent reconstruction loss
+   Computed on infrequent templates only. Forces AE to learn rare events.
+
+2. LC — one-class center loss
+   Encourages AE latent vectors for normal sequences to cluster around a center c. This clusters normals and
+   creates latent-space separation between normal and abnormal patterns.
+
+3. LP — prediction loss
+   The MSE between AE latent Z and EO latent Z'. This is the core anomaly score during inference.
+
+Total loss L = α LR + LC + LP, where α balances magnitudes.
+
+The three losses reinforce each other: LR teaches AE; LC stabilizes representation; LP creates discrepancy-based
+anomaly scoring.
+
+
+
+ALogSCAN uses three losses:
+
+1. LR — infrequent reconstruction loss
+   Computed on infrequent templates only. Forces AE to learn rare events.
+
+2. LC — one-class center loss
+   Encourages AE latent vectors for normal sequences to cluster around a center c. This clusters normals and
+   creates latent-space separation between normal and abnormal patterns.
+
+3. LP — prediction loss
+   The MSE between AE latent Z and EO latent Z'. This is the core anomaly score during inference.
+
+Total loss L = α LR + LC + LP, where α balances magnitudes.
+
+The three losses reinforce each other: LR teaches AE; LC stabilizes representation; LP creates discrepancy-based
+anomaly scoring.
+
+
+
+ALogSCAN uses three losses:
+
+1. LR — infrequent reconstruction loss
+   Computed on infrequent templates only. Forces AE to learn rare events.
+
+2. LC — one-class center loss
+   Encourages AE latent vectors for normal sequences to cluster around a center c. This clusters normals and
+   creates latent-space separation between normal and abnormal patterns.
+
+3. LP — prediction loss
+   The MSE between AE latent Z and EO latent Z'. This is the core anomaly score during inference.
+
+Total loss L = α LR + LC + LP, where α balances magnitudes.
+
+The three losses reinforce each other: LR teaches AE; LC stabilizes representation; LP creates discrepancy-based
+anomaly scoring.
+
+
+
+ALogSCAN uses three losses:
+
+1. LR — infrequent reconstruction loss
+   Computed on infrequent templates only. Forces AE to learn rare events.
+
+2. LC — one-class center loss
+   Encourages AE latent vectors for normal sequences to cluster around a center c. This clusters normals and
+   creates latent-space separation between normal and abnormal patterns.
+
+3. LP — prediction loss
+   The MSE between AE latent Z and EO latent Z'. This is the core anomaly score during inference.
+
+Total loss L = α LR + LC + LP, where α balances magnitudes.
+
+The three losses reinforce each other: LR teaches AE; LC stabilizes representation; LP creates discrepancy-based
+anomaly scoring.
+
+
+
+ALogSCAN uses three losses:
+
+1. LR — infrequent reconstruction loss
+   Computed on infrequent templates only. Forces AE to learn rare events.
+
+2. LC — one-class center loss
+   Encourages AE latent vectors for normal sequences to cluster around a center c. This clusters normals and
+   creates latent-space separation between normal and abnormal patterns.
+
+3. LP — prediction loss
+   The MSE between AE latent Z and EO latent Z'. This is the core anomaly score during inference.
+
+Total loss L = α LR + LC + LP, where α balances magnitudes.
+
+The three losses reinforce each other: LR teaches AE; LC stabilizes representation; LP creates discrepancy-based
+anomaly scoring.
+
+
+
+ALogSCAN uses three losses:
+
+1. LR — infrequent reconstruction loss
+   Computed on infrequent templates only. Forces AE to learn rare events.
+
+2. LC — one-class center loss
+   Encourages AE latent vectors for normal sequences to cluster around a center c. This clusters normals and
+   creates latent-space separation between normal and abnormal patterns.
+
+3. LP — prediction loss
+   The MSE between AE latent Z and EO latent Z'. This is the core anomaly score during inference.
+
+Total loss L = α LR + LC + LP, where α balances magnitudes.
+
+The three losses reinforce each other: LR teaches AE; LC stabilizes representation; LP creates discrepancy-based
+anomaly scoring.
+
+
+
+ALogSCAN uses three losses:
+
+1. LR — infrequent reconstruction loss
+   Computed on infrequent templates only. Forces AE to learn rare events.
+
+2. LC — one-class center loss
+   Encourages AE latent vectors for normal sequences to cluster around a center c. This clusters normals and
+   creates latent-space separation between normal and abnormal patterns.
+
+3. LP — prediction loss
+   The MSE between AE latent Z and EO latent Z'. This is the core anomaly score during inference.
+
+Total loss L = α LR + LC + LP, where α balances magnitudes.
+
+The three losses reinforce each other: LR teaches AE; LC stabilizes representation; LP creates discrepancy-based
+anomaly scoring.
+
+
+
+ALogSCAN uses three losses:
+
+1. LR — infrequent reconstruction loss
+   Computed on infrequent templates only. Forces AE to learn rare events.
+
+2. LC — one-class center loss
+   Encourages AE latent vectors for normal sequences to cluster around a center c. This clusters normals and
+   creates latent-space separation between normal and abnormal patterns.
+
+3. LP — prediction loss
+   The MSE between AE latent Z and EO latent Z'. This is the core anomaly score during inference.
+
+Total loss L = α LR + LC + LP, where α balances magnitudes.
+
+The three losses reinforce each other: LR teaches AE; LC stabilizes representation; LP creates discrepancy-based
+anomaly scoring.
+
+
+
+ALogSCAN uses three losses:
+
+1. LR — infrequent reconstruction loss
+   Computed on infrequent templates only. Forces AE to learn rare events.
+
+2. LC — one-class center loss
+   Encourages AE latent vectors for normal sequences to cluster around a center c. This clusters normals and
+   creates latent-space separation between normal and abnormal patterns.
+
+3. LP — prediction loss
+   The MSE between AE latent Z and EO latent Z'. This is the core anomaly score during inference.
+
+Total loss L = α LR + LC + LP, where α balances magnitudes.
+
+The three losses reinforce each other: LR teaches AE; LC stabilizes representation; LP creates discrepancy-based
+anomaly scoring.
+
+
+
+
+IMPLEMENTATION DETAILS (HARDWARE, CNNs, TRAINING)
+=================================================
+
+
+AE and EO use CNN-based encoders, avoiding LSTMs' sequential overhead and Transformers' quadratic attention.
+CNNs allow O(s) parallelizable computation.
+
+Template embeddings are 32-D. Convolution kernel size is 4. Output channels are around 128. Decoder mirrors
+encoder structure with transpose convolutions.
+
+Optimization: AdamW with polynomial learning rate decay. Batch size 64. Early stopping after 20 epochs.
+
+DFLF is implemented efficiently using template counts cached per batch.
+
+
+
+AE and EO use CNN-based encoders, avoiding LSTMs' sequential overhead and Transformers' quadratic attention.
+CNNs allow O(s) parallelizable computation.
+
+Template embeddings are 32-D. Convolution kernel size is 4. Output channels are around 128. Decoder mirrors
+encoder structure with transpose convolutions.
+
+Optimization: AdamW with polynomial learning rate decay. Batch size 64. Early stopping after 20 epochs.
+
+DFLF is implemented efficiently using template counts cached per batch.
+
+
+
+AE and EO use CNN-based encoders, avoiding LSTMs' sequential overhead and Transformers' quadratic attention.
+CNNs allow O(s) parallelizable computation.
+
+Template embeddings are 32-D. Convolution kernel size is 4. Output channels are around 128. Decoder mirrors
+encoder structure with transpose convolutions.
+
+Optimization: AdamW with polynomial learning rate decay. Batch size 64. Early stopping after 20 epochs.
+
+DFLF is implemented efficiently using template counts cached per batch.
+
+
+
+AE and EO use CNN-based encoders, avoiding LSTMs' sequential overhead and Transformers' quadratic attention.
+CNNs allow O(s) parallelizable computation.
+
+Template embeddings are 32-D. Convolution kernel size is 4. Output channels are around 128. Decoder mirrors
+encoder structure with transpose convolutions.
+
+Optimization: AdamW with polynomial learning rate decay. Batch size 64. Early stopping after 20 epochs.
+
+DFLF is implemented efficiently using template counts cached per batch.
+
+
+
+AE and EO use CNN-based encoders, avoiding LSTMs' sequential overhead and Transformers' quadratic attention.
+CNNs allow O(s) parallelizable computation.
+
+Template embeddings are 32-D. Convolution kernel size is 4. Output channels are around 128. Decoder mirrors
+encoder structure with transpose convolutions.
+
+Optimization: AdamW with polynomial learning rate decay. Batch size 64. Early stopping after 20 epochs.
+
+DFLF is implemented efficiently using template counts cached per batch.
+
+
+
+AE and EO use CNN-based encoders, avoiding LSTMs' sequential overhead and Transformers' quadratic attention.
+CNNs allow O(s) parallelizable computation.
+
+Template embeddings are 32-D. Convolution kernel size is 4. Output channels are around 128. Decoder mirrors
+encoder structure with transpose convolutions.
+
+Optimization: AdamW with polynomial learning rate decay. Batch size 64. Early stopping after 20 epochs.
+
+DFLF is implemented efficiently using template counts cached per batch.
+
+
+
+AE and EO use CNN-based encoders, avoiding LSTMs' sequential overhead and Transformers' quadratic attention.
+CNNs allow O(s) parallelizable computation.
+
+Template embeddings are 32-D. Convolution kernel size is 4. Output channels are around 128. Decoder mirrors
+encoder structure with transpose convolutions.
+
+Optimization: AdamW with polynomial learning rate decay. Batch size 64. Early stopping after 20 epochs.
+
+DFLF is implemented efficiently using template counts cached per batch.
+
+
+
+AE and EO use CNN-based encoders, avoiding LSTMs' sequential overhead and Transformers' quadratic attention.
+CNNs allow O(s) parallelizable computation.
+
+Template embeddings are 32-D. Convolution kernel size is 4. Output channels are around 128. Decoder mirrors
+encoder structure with transpose convolutions.
+
+Optimization: AdamW with polynomial learning rate decay. Batch size 64. Early stopping after 20 epochs.
+
+DFLF is implemented efficiently using template counts cached per batch.
+
+
+
+
+EVALUATION, ABLATION, SCALABILITY
+=================================
+
+
+ALogSCAN outperforms all baselines across HDFS, BGL, and ERDC datasets.
+
+General results:
+- Higher F1
+- Higher recall on rare anomalies
+- Lower false positives
+- Lower latency (ms-scale inference)
+
+Ablation shows:
+- Removing DFLF drastically harms performance
+- Removing IRCI reduces rare-event sensitivity
+- Removing LC destabilizes latent representation
+- α tuning is important
+
+ALogSCAN is robust under template drift and varying anomaly ratios.
+
+
+
+ALogSCAN outperforms all baselines across HDFS, BGL, and ERDC datasets.
+
+General results:
+- Higher F1
+- Higher recall on rare anomalies
+- Lower false positives
+- Lower latency (ms-scale inference)
+
+Ablation shows:
+- Removing DFLF drastically harms performance
+- Removing IRCI reduces rare-event sensitivity
+- Removing LC destabilizes latent representation
+- α tuning is important
+
+ALogSCAN is robust under template drift and varying anomaly ratios.
+
+
+
+ALogSCAN outperforms all baselines across HDFS, BGL, and ERDC datasets.
+
+General results:
+- Higher F1
+- Higher recall on rare anomalies
+- Lower false positives
+- Lower latency (ms-scale inference)
+
+Ablation shows:
+- Removing DFLF drastically harms performance
+- Removing IRCI reduces rare-event sensitivity
+- Removing LC destabilizes latent representation
+- α tuning is important
+
+ALogSCAN is robust under template drift and varying anomaly ratios.
+
+
+
+ALogSCAN outperforms all baselines across HDFS, BGL, and ERDC datasets.
+
+General results:
+- Higher F1
+- Higher recall on rare anomalies
+- Lower false positives
+- Lower latency (ms-scale inference)
+
+Ablation shows:
+- Removing DFLF drastically harms performance
+- Removing IRCI reduces rare-event sensitivity
+- Removing LC destabilizes latent representation
+- α tuning is important
+
+ALogSCAN is robust under template drift and varying anomaly ratios.
+
+
+
+ALogSCAN outperforms all baselines across HDFS, BGL, and ERDC datasets.
+
+General results:
+- Higher F1
+- Higher recall on rare anomalies
+- Lower false positives
+- Lower latency (ms-scale inference)
+
+Ablation shows:
+- Removing DFLF drastically harms performance
+- Removing IRCI reduces rare-event sensitivity
+- Removing LC destabilizes latent representation
+- α tuning is important
+
+ALogSCAN is robust under template drift and varying anomaly ratios.
+
+
+
+ALogSCAN outperforms all baselines across HDFS, BGL, and ERDC datasets.
+
+General results:
+- Higher F1
+- Higher recall on rare anomalies
+- Lower false positives
+- Lower latency (ms-scale inference)
+
+Ablation shows:
+- Removing DFLF drastically harms performance
+- Removing IRCI reduces rare-event sensitivity
+- Removing LC destabilizes latent representation
+- α tuning is important
+
+ALogSCAN is robust under template drift and varying anomaly ratios.
+
+
+
+ALogSCAN outperforms all baselines across HDFS, BGL, and ERDC datasets.
+
+General results:
+- Higher F1
+- Higher recall on rare anomalies
+- Lower false positives
+- Lower latency (ms-scale inference)
+
+Ablation shows:
+- Removing DFLF drastically harms performance
+- Removing IRCI reduces rare-event sensitivity
+- Removing LC destabilizes latent representation
+- α tuning is important
+
+ALogSCAN is robust under template drift and varying anomaly ratios.
+
+
+
+ALogSCAN outperforms all baselines across HDFS, BGL, and ERDC datasets.
+
+General results:
+- Higher F1
+- Higher recall on rare anomalies
+- Lower false positives
+- Lower latency (ms-scale inference)
+
+Ablation shows:
+- Removing DFLF drastically harms performance
+- Removing IRCI reduces rare-event sensitivity
+- Removing LC destabilizes latent representation
+- α tuning is important
+
+ALogSCAN is robust under template drift and varying anomaly ratios.
+
