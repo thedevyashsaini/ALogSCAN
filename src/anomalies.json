@@ -1,0 +1,74 @@
+{
+  "metadata": {
+    "log_file": "..\\scrawn.txt.log",
+    "total_lines": 235,
+    "total_windows": 9,
+    "window_size": 27,
+    "anomaly_threshold": 0.05760808810591698,
+    "threshold_percentile": 85,
+    "analysis_time": "2025-11-16T14:50:08.230808"
+  },
+  "statistics": {
+    "total_anomalies": 2,
+    "anomaly_rate": 0.2222222222222222,
+    "avg_anomaly_score": 0.0494423545897007,
+    "max_anomaly_score": 0.06363745778799057,
+    "min_anomaly_score": 0.02286173403263092
+  },
+  "anomalies": [
+    {
+      "session_id": 3,
+      "anomaly_score": 0.06363745778799057,
+      "start_line": 81,
+      "end_line": 108,
+      "log_sample": "[2025-11-10T09:13:32.553Z] [ERROR] [Scrawn] Failed to initialize Scrawn SDK",
+      "severity": "MEDIUM"
+    },
+    {
+      "session_id": 4,
+      "anomaly_score": 0.05777904391288757,
+      "start_line": 108,
+      "end_line": 135,
+      "log_sample": "[2025-11-10T10:09:01.051Z] [INFO] [Scrawn] Event registered successfully: {\"random\":\"Event stored successfully\"}",
+      "severity": "MEDIUM"
+    }
+  ],
+  "all_scores": [
+    {
+      "session_idx": 0,
+      "anomaly_scores": 0.02286173403263092
+    },
+    {
+      "session_idx": 1,
+      "anomaly_scores": 0.04728466272354126
+    },
+    {
+      "session_idx": 2,
+      "anomaly_scores": 0.03857430815696716
+    },
+    {
+      "session_idx": 3,
+      "anomaly_scores": 0.06363745778799057
+    },
+    {
+      "session_idx": 4,
+      "anomaly_scores": 0.05777904391288757
+    },
+    {
+      "session_idx": 5,
+      "anomaly_scores": 0.05051490664482117
+    },
+    {
+      "session_idx": 6,
+      "anomaly_scores": 0.05064500495791435
+    },
+    {
+      "session_idx": 7,
+      "anomaly_scores": 0.05675983428955078
+    },
+    {
+      "session_idx": 8,
+      "anomaly_scores": 0.05692426487803459
+    }
+  ]
+}

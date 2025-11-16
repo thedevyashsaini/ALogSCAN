@@ -1,0 +1,235 @@
+[2025-11-08T10:49:33.002Z] [ERROR] [Auth] Invalid API key format: "sk_test123456789ssdadadada0ab". EXPECTED: sk_<16 alphanumeric characters>
+[2025-11-08T10:49:33.003Z] [ERROR] [Scrawn] Failed to initialize Scrawn SDK
+[2025-11-08T10:54:13.762Z] [ERROR] [Scrawn] Failed to initialize Scrawn SDK:
+Error: Invalid API key format. Expected format: sk_<16 alphanumeric characters>. Got: sk_test123...
+Error: Invalid API key format. Expected format: sk_<16 alphanumeric characters>. Got: sk_test123...
+    at validateApiKey (file:///mnt/c/Users/Devyash/Documents/Scrawn/SDK/packages/scrawn/dist/core/auth/apiKeyAuth.js:14:15)
+    at new ApiKeyAuth (file:///mnt/c/Users/Devyash/Documents/Scrawn/SDK/packages/scrawn/dist/core/auth/apiKeyAuth.js:41:29)
+    at new Scrawn (file:///mnt/c/Users/Devyash/Documents/Scrawn/SDK/packages/scrawn/dist/core/scrawn.js:45:44)
+    at main (file:///mnt/c/Users/Devyash/Documents/Scrawn/SDK/examples/basic-usage.ts:4:18)
+    at file:///mnt/c/Users/Devyash/Documents/Scrawn/SDK/examples/basic-usage.ts:19:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:665:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+[2025-11-08T10:55:23.913Z] [ERROR] [Auth] Invalid API key format: "sk_test123456789ssdadadada0ab". EXPECTED: sk_<16 alphanumeric characters>
+[2025-11-08T10:55:23.914Z] [ERROR] [Scrawn] Failed to initialize Scrawn SDK
+[2025-11-08T10:57:18.924Z] [ERROR] [Auth] Invalid API key format: "sk_test123456789ssdadadada0ab".
+[2025-11-08T10:57:18.926Z] [ERROR] [Scrawn] Failed to initialize Scrawn SDK
+[2025-11-08T10:58:56.679Z] [ERROR] [Auth] Invalid API key format: "sk_test123456789".
+[2025-11-08T10:58:56.681Z] [ERROR] [Scrawn] Failed to initialize Scrawn SDK
+[2025-11-08T10:59:20.316Z] [INFO] [Scrawn] Ingesting event (type: SERVERLESS_FUNCTION_CALL) with creds: {"apiKey":"sk_test123456789012"}, payload: {"userId":"u123","debitAmount":3}
+[2025-11-08T10:59:20.317Z] [INFO] [Scrawn] Ingesting event (type: SERVERLESS_FUNCTION_CALL) with creds: {"apiKey":"sk_test123456789012"}, payload: {"userId":"u456","debitAmount":5}
+[2025-11-08T11:01:16.919Z] [INFO] [Scrawn] Ingesting event (type: SERVERLESS_FUNCTION_CALL) with creds: {"apiKey":"sk_test123456789012"}, payload: {"userId":"u123","debitAmount":3}
+[2025-11-08T11:01:16.921Z] [INFO] [Scrawn] Ingesting event (type: SERVERLESS_FUNCTION_CALL) with creds: {"apiKey":"sk_test123456789012"}, payload: {"userId":"u456","debitAmount":5}
+[2025-11-08T11:03:19.987Z] [INFO] [Scrawn] Ingesting event (type: SERVERLESS_FUNCTION_CALL) with creds: {"apiKey":"sk_test123456789012"}, payload: {"userId":"u123","debitAmount":3}
+[2025-11-08T11:03:19.989Z] [INFO] [Scrawn] Ingesting event (type: SERVERLESS_FUNCTION_CALL) with creds: {"apiKey":"sk_test123456789012"}, payload: {"userId":"u456","debitAmount":5}
+[2025-11-08T20:22:17.783Z] [INFO] [Scrawn] Ingesting event (type: SERVERLESS_FUNCTION_CALL) with creds: {"apiKey":"sk_test123456789012"}, payload: {"userId":"u123","debitAmount":3}
+[2025-11-08T20:22:17.784Z] [INFO] [Scrawn] Ingesting event (type: SERVERLESS_FUNCTION_CALL) with creds: {"apiKey":"sk_test123456789012"}, payload: {"userId":"u456","debitAmount":5}
+[2025-11-08T20:22:58.710Z] [ERROR] [Auth] Invalid API key format: "sk_test12345678901269".
+[2025-11-08T20:22:58.711Z] [ERROR] [Scrawn] Failed to initialize Scrawn SDK
+[2025-11-09T11:36:50.199Z] [INFO] [Scrawn] Ingesting event (type: SERVERLESS_FUNCTION_CALL) with creds: {"apiKey":"sk_test123456789012"}, payload: {"userId":"u123","debitAmount":3}
+[2025-11-09T11:36:50.201Z] [INFO] [Scrawn] Ingesting event (type: SERVERLESS_FUNCTION_CALL) with creds: {"apiKey":"sk_test123456789012"}, payload: {"userId":"u456","debitAmount":5}
+[2025-11-09T11:36:55.165Z] [INFO] [Scrawn] Ingesting event (type: SERVERLESS_FUNCTION_CALL) with creds: {"apiKey":"sk_test123456789012"}, payload: {"userId":"u123","debitAmount":3}
+[2025-11-09T11:36:55.166Z] [INFO] [Scrawn] Ingesting event (type: SERVERLESS_FUNCTION_CALL) with creds: {"apiKey":"sk_test123456789012"}, payload: {"userId":"u456","debitAmount":5}
+[2025-11-09T15:02:50.520Z] [ERROR] [Auth] Invalid API key format: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzY2Y4YjM5LTVmMzYtNDI4Mi04OTQ0LWIxMmVlMjQzODE5NSIsInJvbGVzIjpbIjEyMyJdLCJpYXQiOjE3NjA4ODU3ODJ9.LUusCl3acVouvYpLKjLrNt_Jgd8zRNu48ZkXqkPVpJY".
+[2025-11-09T15:02:50.521Z] [ERROR] [Scrawn] Failed to initialize Scrawn SDK
+[2025-11-09T15:03:58.362Z] [INFO] [Scrawn] Sending event to Scrawn backend (type: 1, userId: u123, debitAmount: 3)
+[2025-11-09T15:03:59.929Z] [ERROR] [Scrawn] Failed to register event with Scrawn backend: [internal] Protocol error
+[2025-11-09T15:09:24.277Z] [INFO] [Scrawn] Sending event to Scrawn backend (type: 1, userId: u123, debitAmount: 3)
+[2025-11-09T15:09:25.690Z] [ERROR] [Scrawn] Failed to register event with Scrawn backend: [internal] Protocol error
+[2025-11-09T15:14:03.833Z] [INFO] [Scrawn] Sending event to Scrawn backend (type: 1, userId: u123, debitAmount: 3)
+[2025-11-09T15:14:03.835Z] [INFO] [Scrawn] Outgoing request to http://scrawn-production.up.railway.app - authorization: Bearer eyJh...VpJY
+[2025-11-09T15:14:05.372Z] [ERROR] [Scrawn] Failed to register event with Scrawn backend: [internal] Protocol error
+[2025-11-09T15:15:36.994Z] [INFO] [Scrawn] Sending event to Scrawn backend (type: 1, userId: u123, debitAmount: 3)
+[2025-11-09T15:15:36.997Z] [INFO] [Scrawn] Outgoing request to http://scrawn-production.up.railway.app - authorization: Bearer eyJh...VpJY
+[2025-11-09T15:15:37.744Z] [ERROR] [Scrawn] Failed to register event with Scrawn backend: [internal] Protocol error
+[2025-11-09T15:15:56.750Z] [INFO] [Scrawn] Sending event to Scrawn backend (type: 1, userId: u123, debitAmount: 3)
+[2025-11-09T15:15:56.753Z] [INFO] [Scrawn] Outgoing request to http://scrawn-production.up.railway.app - authorization: Bearer eyJh...VpJY
+[2025-11-09T15:15:58.292Z] [ERROR] [Scrawn] Failed to register event with Scrawn backend: [internal] Protocol error
+[2025-11-09T15:21:59.341Z] [INFO] [Scrawn] Sending event to Scrawn backend (type: 1, userId: test-user, debitAmount: 1)
+[2025-11-09T15:21:59.344Z] [INFO] [Scrawn] Outgoing request to http://localhost:8085 - authorization: Bearer sk_t...ocal
+[2025-11-09T15:21:59.370Z] [ERROR] [Scrawn] Failed to register event with Scrawn backend: [internal] unsupported content type application/json
+[2025-11-09T15:23:49.776Z] [INFO] [Scrawn] Sending event to Scrawn backend (type: 1, userId: test-user, debitAmount: 1)
+[2025-11-09T15:23:49.780Z] [INFO] [Scrawn] Outgoing request to http://localhost:8085 - authorization: Bearer sk_t...ocal
+[2025-11-09T15:23:49.807Z] [ERROR] [Scrawn] Failed to register event with Scrawn backend: [internal] unsupported content type application/json
+[2025-11-09T15:25:02.763Z] [INFO] [Scrawn] Sending event to Scrawn backend (type: 1, userId: test-user, debitAmount: 1)
+[2025-11-09T15:25:02.767Z] [INFO] [Scrawn] Outgoing request to http://localhost:8085 - authorization: Bearer sk_t...ocal
+[2025-11-09T15:25:02.798Z] [ERROR] [Scrawn] Failed to register event with Scrawn backend: [internal] unsupported content type application/json
+[2025-11-09T15:27:28.446Z] [INFO] [Scrawn] Sending event to Scrawn backend (type: 1, userId: test-user, debitAmount: 1)
+[2025-11-09T15:27:28.449Z] [INFO] [Scrawn] Outgoing request to http://localhost:8085 - authorization: Bearer sk_t...ocal
+[2025-11-09T15:27:28.474Z] [ERROR] [Scrawn] Failed to register event with Scrawn backend: [internal] unsupported content type application/json
+[2025-11-09T15:27:50.292Z] [INFO] [Scrawn] Sending event to Scrawn backend (type: 1, userId: test-user, debitAmount: 1)
+[2025-11-09T15:27:50.295Z] [INFO] [Scrawn] Outgoing request to http://localhost:8085 - authorization: Bearer sk_t...ocal
+[2025-11-09T15:27:50.323Z] [ERROR] [Scrawn] Failed to register event with Scrawn backend: [internal] unsupported content type application/json
+[2025-11-09T15:29:06.825Z] [INFO] [Scrawn] Sending event to Scrawn backend (type: 1, userId: test-user, debitAmount: 1)
+[2025-11-09T15:29:06.827Z] [INFO] [Scrawn] Outgoing request to http://localhost:8085 - authorization: Bearer sk_t...ocal
+[2025-11-09T15:29:06.853Z] [ERROR] [Scrawn] Failed to register event with Scrawn backend: [internal] unsupported content type application/json
+[2025-11-09T15:29:31.147Z] [INFO] [Scrawn] Sending event to Scrawn backend (type: 1, userId: test-user, debitAmount: 1)
+[2025-11-09T15:29:31.150Z] [INFO] [Scrawn] Outgoing request to http://localhost:8085 - authorization: Bearer sk_t...ocal
+[2025-11-09T15:29:31.179Z] [ERROR] [Scrawn] Failed to register event with Scrawn backend: [internal] unsupported content type application/json
+[2025-11-09T15:34:13.631Z] [INFO] [Scrawn] Sending event to Scrawn backend (type: 1, userId: test-user, debitAmount: 1)
+[2025-11-09T15:34:13.634Z] [INFO] [Scrawn] Outgoing request to http://localhost:8085 - authorization: Bearer sk_t...ocal
+[2025-11-09T15:34:13.657Z] [ERROR] [Scrawn] Failed to register event with Scrawn backend: [internal] unsupported content type application/json
+[2025-11-09T15:40:42.905Z] [INFO] [Scrawn] Sending event to Scrawn backend (type: 1, userId: u123, debitAmount: 3)
+[2025-11-09T15:40:42.911Z] [INFO] [Scrawn] Outgoing request to http://scrawn-production.up.railway.app - authorization: Bearer eyJh...VpJY
+[2025-11-09T15:40:44.370Z] [ERROR] [Scrawn] Failed to register event with Scrawn backend: [internal] Protocol error
+[2025-11-10T08:56:01.336Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_ioR9GObGphZ5e0cPXakioOlZnIVI9w5W"}, payload: {"userId":"u123","debitAmount":3}
+[2025-11-10T08:58:18.633Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_ioR9GObGphZ5e0cPXakioOlZnIVI9w5W"}, payload: {"userId":"u123","debitAmount":3}
+[2025-11-10T08:58:18.767Z] [ERROR] [Scrawn] Failed to register event: [internal] internal error
+[2025-11-10T09:01:19.447Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_ioR9GObGphZ5e0cPXakioOlZnIVI9w5W"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3}
+[2025-11-10T09:01:19.827Z] [ERROR] [Scrawn] Failed to register event: [internal] internal error
+[2025-11-10T09:13:32.551Z] [ERROR] [Auth] Invalid API key format: "".
+[2025-11-10T09:13:32.553Z] [ERROR] [Scrawn] Failed to initialize Scrawn SDK
+[2025-11-10T09:14:23.897Z] [ERROR] [Auth] Invalid API key format: "".
+[2025-11-10T09:14:23.898Z] [ERROR] [Scrawn] Failed to initialize Scrawn SDK
+[2025-11-10T09:14:44.212Z] [ERROR] [Auth] Invalid API key format: "".
+[2025-11-10T09:14:44.213Z] [ERROR] [Scrawn] Failed to initialize Scrawn SDK
+[2025-11-10T09:15:15.847Z] [ERROR] [Auth] Invalid API key format: "".
+[2025-11-10T09:15:15.849Z] [ERROR] [Scrawn] Failed to initialize Scrawn SDK
+[2025-11-10T09:15:47.789Z] [ERROR] [Auth] Invalid API key format: "".
+[2025-11-10T09:15:47.790Z] [ERROR] [Scrawn] Failed to initialize Scrawn SDK
+[2025-11-10T09:18:24.937Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3}
+[2025-11-10T09:18:25.320Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-10T09:18:25.321Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"0a1e38a5-e2f3-450f-9796-59ad406d93dc","debitAmount":5}
+[2025-11-10T09:18:25.468Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-10T09:39:22.313Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3}
+[2025-11-10T09:46:32.953Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3}
+[2025-11-10T09:46:33.715Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-10T09:46:33.715Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"0a1e38a5-e2f3-450f-9796-59ad406d93dc","debitAmount":5}
+[2025-11-10T09:46:33.844Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-10T09:46:58.396Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3}
+[2025-11-10T09:46:58.868Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-10T09:46:58.868Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"0a1e38a5-e2f3-450f-9796-59ad406d93dc","debitAmount":5}
+[2025-11-10T09:46:59.054Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-10T10:09:00.706Z] [INFO] [GrpcClient] Initializing gRPC client for http://localhost:8000
+[2025-11-10T10:09:00.707Z] [INFO] [GrpcClient] gRPC client initialized successfully
+[2025-11-10T10:09:00.710Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3}
+[2025-11-10T10:09:00.712Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-10T10:09:01.050Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-10T10:09:01.051Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-10T10:09:01.052Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"0a1e38a5-e2f3-450f-9796-59ad406d93dc","debitAmount":5}
+[2025-11-10T10:09:01.053Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-10T10:09:01.212Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-10T10:09:01.212Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-10T10:17:46.514Z] [INFO] [GrpcClient] Initializing gRPC client for http://localhost:8000
+[2025-11-10T10:17:46.515Z] [INFO] [GrpcClient] gRPC client initialized successfully
+[2025-11-10T10:17:46.518Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3}
+[2025-11-10T10:17:46.519Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-10T10:17:46.849Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-10T10:17:46.850Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-10T10:17:46.850Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"0a1e38a5-e2f3-450f-9796-59ad406d93dc","debitAmount":5}
+[2025-11-10T10:17:46.851Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-10T10:17:46.992Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-10T10:17:46.993Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-10T10:39:57.302Z] [INFO] [GrpcClient] Initializing gRPC client for http://localhost:8000
+[2025-11-10T10:39:57.303Z] [INFO] [GrpcClient] gRPC client initialized successfully
+[2025-11-10T10:39:57.305Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3}
+[2025-11-10T10:39:57.307Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-10T10:39:57.908Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-10T10:39:57.908Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-10T10:39:57.909Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"0a1e38a5-e2f3-450f-9796-59ad406d93dc","debitAmount":5}
+[2025-11-10T10:39:57.910Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-10T10:39:58.047Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-10T10:39:58.048Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-11T17:34:49.548Z] [INFO] [GrpcClient] Initializing gRPC client for http://localhost:8000
+[2025-11-11T17:34:49.550Z] [INFO] [GrpcClient] gRPC client initialized successfully
+[2025-11-11T17:34:49.555Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3}
+[2025-11-11T17:34:49.557Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-11T17:34:50.507Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-11T17:34:50.508Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-11T17:34:50.508Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"0a1e38a5-e2f3-450f-9796-59ad406d93dc","debitAmount":5}
+[2025-11-11T17:34:50.509Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-11T17:34:50.785Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-11T17:34:50.785Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-11T17:34:50.786Z] [INFO] [Scrawn] Creating checkout link for user: c0971bcb-b901-4c3e-a191-c9a97871c39f
+[2025-11-11T17:34:50.787Z] [INFO] [RequestBuilder] Making gRPC call to createCheckoutLink
+[2025-11-11T17:34:50.803Z] [ERROR] [RequestBuilder] gRPC call to createCheckoutLink failed: [internal] internal error
+[2025-11-11T17:34:50.804Z] [ERROR] [Scrawn] Failed to create checkout link: [internal] internal error
+[2025-11-11T17:39:45.576Z] [INFO] [GrpcClient] Initializing gRPC client for http://localhost:8000
+[2025-11-11T17:39:45.577Z] [INFO] [GrpcClient] gRPC client initialized successfully
+[2025-11-11T17:39:45.579Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3}
+[2025-11-11T17:39:45.581Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-11T17:39:46.012Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-11T17:39:46.012Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-11T17:39:46.014Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"0a1e38a5-e2f3-450f-9796-59ad406d93dc","debitAmount":5}
+[2025-11-11T17:39:46.015Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-11T17:39:46.204Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-11T17:39:46.205Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-11T17:39:46.206Z] [INFO] [Scrawn] Creating checkout link for user: c0971bcb-b901-4c3e-a191-c9a97871c39f
+[2025-11-11T17:39:46.207Z] [INFO] [RequestBuilder] Making gRPC call to createCheckoutLink
+[2025-11-11T17:39:47.202Z] [ERROR] [RequestBuilder] gRPC call to createCheckoutLink failed: [internal] internal error
+[2025-11-11T17:39:47.202Z] [ERROR] [Scrawn] Failed to create checkout link: [internal] internal error
+[2025-11-11T17:40:35.025Z] [INFO] [GrpcClient] Initializing gRPC client for http://localhost:8000
+[2025-11-11T17:40:35.026Z] [INFO] [GrpcClient] gRPC client initialized successfully
+[2025-11-11T17:40:35.030Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3}
+[2025-11-11T17:40:35.034Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-11T17:40:35.218Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-11T17:40:35.219Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-11T17:40:35.221Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"0a1e38a5-e2f3-450f-9796-59ad406d93dc","debitAmount":5}
+[2025-11-11T17:40:35.223Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-11T17:40:35.366Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-11T17:40:35.367Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-11T17:40:35.368Z] [INFO] [Scrawn] Creating checkout link for user: c0971bcb-b901-4c3e-a191-c9a97871c39f
+[2025-11-11T17:40:35.368Z] [INFO] [RequestBuilder] Making gRPC call to createCheckoutLink
+[2025-11-11T17:40:35.876Z] [ERROR] [RequestBuilder] gRPC call to createCheckoutLink failed: [internal] internal error
+[2025-11-11T17:40:35.876Z] [ERROR] [Scrawn] Failed to create checkout link: [internal] internal error
+[2025-11-11T17:40:58.595Z] [INFO] [GrpcClient] Initializing gRPC client for http://localhost:8000
+[2025-11-11T17:40:58.596Z] [INFO] [GrpcClient] gRPC client initialized successfully
+[2025-11-11T17:40:58.599Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3}
+[2025-11-11T17:40:58.600Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-11T17:41:00.847Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-11T17:41:00.848Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-11T17:41:00.848Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"0a1e38a5-e2f3-450f-9796-59ad406d93dc","debitAmount":5000}
+[2025-11-11T17:41:00.849Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-11T17:41:01.027Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-11T17:41:01.028Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-11T17:41:01.029Z] [INFO] [Scrawn] Creating checkout link for user: c0971bcb-b901-4c3e-a191-c9a97871c39f
+[2025-11-11T17:41:01.029Z] [INFO] [RequestBuilder] Making gRPC call to createCheckoutLink
+[2025-11-11T17:41:01.718Z] [ERROR] [RequestBuilder] gRPC call to createCheckoutLink failed: [internal] internal error
+[2025-11-11T17:41:01.719Z] [ERROR] [Scrawn] Failed to create checkout link: [internal] internal error
+[2025-11-11T17:41:22.728Z] [INFO] [GrpcClient] Initializing gRPC client for http://localhost:8000
+[2025-11-11T17:41:22.729Z] [INFO] [GrpcClient] gRPC client initialized successfully
+[2025-11-11T17:41:22.731Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3000}
+[2025-11-11T17:41:22.733Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-11T17:41:23.617Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-11T17:41:23.618Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-11T17:41:23.618Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"0a1e38a5-e2f3-450f-9796-59ad406d93dc","debitAmount":5000}
+[2025-11-11T17:41:23.619Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-11T17:41:23.779Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-11T17:41:23.779Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-11T17:41:23.781Z] [INFO] [Scrawn] Creating checkout link for user: c0971bcb-b901-4c3e-a191-c9a97871c39f
+[2025-11-11T17:41:23.782Z] [INFO] [RequestBuilder] Making gRPC call to createCheckoutLink
+[2025-11-11T17:41:24.666Z] [INFO] [RequestBuilder] Successfully completed gRPC call to createCheckoutLink
+[2025-11-11T17:41:24.666Z] [INFO] [Scrawn] Checkout link created successfully: https://painsicle.lemonsqueezy.com/checkout/custom/431063e3-e072-4cbe-9b32-5234ce0e528a?signature=20a8732b488f96215441f7b4354797c7205fbbe176510747d90f9235f1ec127f
+[2025-11-14T05:32:57.951Z] [INFO] [GrpcClient] Initializing gRPC client for http://localhost:8000
+[2025-11-14T05:32:57.952Z] [INFO] [GrpcClient] gRPC client initialized successfully
+[2025-11-14T05:32:57.954Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3000}
+[2025-11-14T05:32:57.955Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-14T05:32:58.795Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-14T05:32:58.795Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-14T05:32:58.795Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"0a1e38a5-e2f3-450f-9796-59ad406d93dc","debitAmount":5000}
+[2025-11-14T05:32:58.796Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-14T05:32:58.950Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-14T05:32:58.950Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-14T05:33:31.867Z] [INFO] [GrpcClient] Initializing gRPC client for http://localhost:8000
+[2025-11-14T05:33:31.869Z] [INFO] [GrpcClient] gRPC client initialized successfully
+[2025-11-14T05:33:31.870Z] [INFO] [Scrawn] Creating checkout link for user: c0971bcb-b901-4c3e-a191-c9a97871c39f
+[2025-11-14T05:33:31.871Z] [INFO] [RequestBuilder] Making gRPC call to createCheckoutLink
+[2025-11-14T05:33:32.786Z] [INFO] [RequestBuilder] Successfully completed gRPC call to createCheckoutLink
+[2025-11-14T05:33:32.787Z] [INFO] [Scrawn] Checkout link created successfully: https://painsicle.lemonsqueezy.com/checkout/custom/6948946d-a42f-49f6-b6c1-bcae86fd4881?signature=35e74a8a6060e802d672dab789bd4128a111ba41c151548fa50df40f2eda1338
+[2025-11-14T05:37:27.286Z] [INFO] [GrpcClient] Initializing gRPC client for http://localhost:8000
+[2025-11-14T05:37:27.287Z] [INFO] [GrpcClient] gRPC client initialized successfully
+[2025-11-14T05:37:27.289Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"c0971bcb-b901-4c3e-a191-c9a97871c39f","debitAmount":3000}
+[2025-11-14T05:37:27.291Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-14T05:37:27.468Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-14T05:37:27.468Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-14T05:37:27.468Z] [INFO] [Scrawn] Ingesting event (type: SDK_CALL) with creds: {"apiKey":"scrn_JglhxHOjM0CanQ2E2Skat13unPxRofSm"}, payload: {"userId":"0a1e38a5-e2f3-450f-9796-59ad406d93dc","debitAmount":5000}
+[2025-11-14T05:37:27.469Z] [INFO] [RequestBuilder] Making gRPC call to registerEvent
+[2025-11-14T05:37:27.593Z] [INFO] [RequestBuilder] Successfully completed gRPC call to registerEvent
+[2025-11-14T05:37:27.594Z] [INFO] [Scrawn] Event registered successfully: {"random":"Event stored successfully"}
+[2025-11-14T05:37:54.892Z] [INFO] [GrpcClient] Initializing gRPC client for http://localhost:8000
+[2025-11-14T05:37:54.893Z] [INFO] [GrpcClient] gRPC client initialized successfully
+[2025-11-14T05:37:54.894Z] [INFO] [Scrawn] Creating checkout link for user: c0971bcb-b901-4c3e-a191-c9a97871c39f
+[2025-11-14T05:37:54.894Z] [INFO] [RequestBuilder] Making gRPC call to createCheckoutLink
+[2025-11-14T05:37:55.886Z] [INFO] [RequestBuilder] Successfully completed gRPC call to createCheckoutLink
+[2025-11-14T05:37:55.886Z] [INFO] [Scrawn] Checkout link created successfully: https://painsicle.lemonsqueezy.com/checkout/custom/3a36eb12-fde6-436a-915c-8e919666320b?signature=8bd2dba630639a8ce54a9221ce5879dab128e24b24495c06c8d0e297addc33ba

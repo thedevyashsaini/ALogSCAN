@@ -1,0 +1,10 @@
+python demo.py --datasets bgl --window_size 100 --session_size 100 --epoches 100 --batch_size 64 --gpu 0 
+
+# inference on BGL test data
+python .\inference_demo.py
+
+# test on scrawn raw logs
+python production_inference.py --log_file ..\scrawn.log  --model_dir experiment_records/b69e9392 --output anomalies.json --window_size 27
+
+# test on scrawn processed logs
+python production_inference.py --log_file ..\scrawn.txt.log  --model_dir experiment_records/b69e9392 --output anomalies.json --window_size 27

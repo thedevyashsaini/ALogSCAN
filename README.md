@@ -30,7 +30,67 @@ ALogSCAN/ ├── data/ # Log instances and processed input data ├── src
 - numpy
 - pandas
 
-> Run `pip install -r requirements.txt` to install dependencies.
+   Run `pip install -r requirements.txt` to install dependencies.
+
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Train on a dataset:
+   ```bash
+   cd src
+   # Preprocess dataset
+   python preprocess_dataset.py --dataset Apache --window_size 100
+   
+   # Train model
+   python train_custom_dataset.py --datasets apache --window_size 100 --epochs 50
+   ```
+
+4. Run inference on your logs:
+   ```bash
+   python production_inference.py \
+       --log_file /path/to/your/logs.txt \
+       --model_dir experiment_records/<model_id> \
+       --output results.json
+   ```
+
+📖 **For detailed instructions**, see [TRAINING_AND_INFERENCE_GUIDE.md](TRAINING_AND_INFERENCE_GUIDE.md)
+
+---
+
+## 📚 New Features
+
+### Training on Custom Datasets
+
+You can now train ALogSCAN on any of the 16 available datasets or your own data:
+
+```bash
+# Preprocess any dataset
+python preprocess_dataset.py --dataset Linux --window_size 100
+
+# Train on multiple datasets
+python train_custom_dataset.py --datasets apache linux spark --window_size 100
+```
+
+### Production Inference
+
+Use the new `production_inference.py` script for real anomaly detection:
+
+```bash
+python production_inference.py \
+    --log_file server.log \
+    --model_dir experiment_records/b69e9392 \
+    --window_size 100 \
+    --output anomalies.json
+```
+
+This performs **actual neural network inference** on your log files and outputs:
+- Anomaly scores for each log window
+- Detected anomalies with severity levels
+- Detailed reports in JSON or CSV format
+
+See `TRAINING_AND_INFERENCE_GUIDE.md` for complete documentation.
 
 ---
 
@@ -41,9 +101,27 @@ In this repository, the BGL dataset under 100logs setting is proposed for a quic
 
 For generating the data files, please refer to the implementation repo of [deep-loglizer](https://github.com/logpai/deep-loglizer).
 
+**📦 Available Datasets:** This repository includes 16 pre-parsed log datasets in `data/logs/`:
+- BGL, HDFS, Apache, Linux, Mac, OpenSSH, OpenStack, Spark, Thunderbird, Windows, Zookeeper, Android, Hadoop, HealthApp, HPC, Proxifier
 
+See `TRAINING_AND_INFERENCE_GUIDE.md` for details on training with these datasets.
 
 ## 🚀 Getting Started
+
+### Quick Start (Interactive)
+
+```bash
+# Run the interactive quick start tool
+cd src
+python quick_start.py
+```
+
+This will guide you through:
+1. Preprocessing datasets
+2. Training models
+3. Running inference on your logs
+
+### Manual Setup
 
 1. Clone the repo:
    ```bash
