@@ -23,7 +23,7 @@ def dump_final_results(params, eval_results):
     timestamp = ['time']
     config_list = ['framework', 'datasource', 'dataset', 'session_size', 'window_size', 'stride', 'without_duplicate',
                    'semi_supervised', 'no_validation', 'embedding_type', 'encoder_type', 'kernel_sizes', 'pooling_mode',
-                   'reconstruction_mode', 'masking_by', 'masking_ratio', 'loss_ablation', 'embedding_dim', 'hidden_size',
+                   'reconstruction_mode', 'masking_by', 'masking_ratio', 'masking_strategy', 'loss_ablation', 'embedding_dim', 'hidden_size',
                    'alpha', 'beta', 'gamma', 'epoches', 'batch_size', 'learning_rate', 'patience']
     df_title = timestamp + config_list + metric_list
 
@@ -167,16 +167,20 @@ def mask_vectors_in_batch_by_duplicate_node(x, p=-1.0, fill_value=0.0, strategy=
         if strategy == 'random':
             # Original DFLF: Random sampling from predefined set
             p_value = int(np.random.choice([0.05, 0.1, 0.15, 0.2], 1)[0] * len(counts))
+            print(f"[DFLF] Using RANDOM strategy - masking {p_value}/{len(counts)} unique log types")
         elif strategy == 'fixed-topk':
             # Fixed threshold: Always mask top 15% most frequent logs
             p_value = int(0.15 * len(counts))
+            print(f"[DFLF] Using FIXED-TOPK strategy - masking {p_value}/{len(counts)} unique log types (15%)")
         elif strategy == 'statistical':
             # Statistical threshold: Based on mean + 0.5*std of frequency distribution
             counts_np = counts.cpu().numpy().astype(float)
             threshold_ratio = min(0.25, max(0.05, (np.mean(counts_np) + 0.5 * np.std(counts_np)) / np.max(counts_np)))
             p_value = int(threshold_ratio * len(counts))
+            print(f"[DFLF] Using STATISTICAL strategy - masking {p_value}/{len(counts)} unique log types ({threshold_ratio*100:.1f}%)")
         else:
             p_value = int(0.15 * len(counts))  # fallback to fixed
+            print(f"[DFLF] Using FALLBACK strategy - masking {p_value}/{len(counts)} unique log types")
     else:
         if p == 0.0:
             return x, torch.ones_like(x, dtype=torch.bool)

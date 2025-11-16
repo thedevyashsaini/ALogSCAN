@@ -1,4 +1,10 @@
-python demo.py --datasets bgl --window_size 100 --session_size 100 --epoches 100 --batch_size 64 --gpu 0 
+# training with delta
+python demo.py --datasets bgl --window_size 100 --session_size 100 --epoches 100 --batch_size 64 --gpu 0 --masking_strategy random
+python demo.py --datasets bgl --window_size 100 --session_size 100 --epoches 100 --batch_size 64 --gpu 0 --masking_strategy fixed-topk
+python demo.py --datasets bgl --window_size 100 --session_size 100 --epoches 100 --batch_size 64 --gpu 0 --masking_strategy statistical
+
+# generate evaluation
+python evaluate_and_visualize.py
 
 # inference on BGL test data
 python .\inference_demo.py

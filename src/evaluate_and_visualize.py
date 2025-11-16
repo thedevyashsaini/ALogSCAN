@@ -32,13 +32,35 @@ def create_comparison_table(df):
     # Filter for relevant columns
     metrics = ['pc', 'rc', 'f1', 'prc', 'roc', 'apc', 'acc', 'mcc']
     
+    # Helper function to parse "mean ± std" format
+    def parse_metric_value(val):
+        if isinstance(val, str) and '±' in val:
+            parts = val.split('±')
+            mean = float(parts[0].strip())
+            std = float(parts[1].strip()) if len(parts) > 1 else 0.0
+            return mean, std
+        return float(val), 0.0
+    
     # Group by masking_strategy if it exists
     if 'masking_strategy' in df.columns:
-        comparison = df.groupby('masking_strategy')[metrics].apply(
-            lambda x: x.apply(lambda col: f"{col.mean():.4f} ± {col.std():.4f}" if col.std() > 0 else f"{col.mean():.4f}")
-        )
+        # Check if values are already in "mean ± std" format
+        sample_val = df[metrics[0]].iloc[0]
+        if isinstance(sample_val, str) and '±' in sample_val:
+            # Values are already aggregated, just display them
+            comparison = df.set_index('masking_strategy')[metrics]
+        else:
+            # Values are raw numbers, calculate mean ± std
+            comparison = df.groupby('masking_strategy')[metrics].apply(
+                lambda x: x.apply(lambda col: f"{col.mean():.4f} ± {col.std():.4f}" if col.std() > 0 else f"{col.mean():.4f}")
+            )
     else:
         print("No masking_strategy column found. Creating summary stats instead.")
+        if len(df) == 1:
+            # Only one row - just show the values
+            comparison = df[metrics].T
+            comparison.columns = ['Value']
+            return comparison
+        # Multiple rows without strategy column
         comparison = df[metrics].describe().loc[['mean', 'std']].T
         comparison['summary'] = comparison.apply(lambda x: f"{x['mean']:.4f} ± {x['std']:.4f}", axis=1)
     
