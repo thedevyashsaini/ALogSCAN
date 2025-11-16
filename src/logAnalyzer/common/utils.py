@@ -12,7 +12,7 @@ import random
 import hashlib
 import logging
 from datetime import datetime
-import umap.plot
+# import umap.plot  # Not used, commented out to avoid dependency issues
 import matplotlib.pyplot as plt
 
 

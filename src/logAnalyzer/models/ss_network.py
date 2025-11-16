@@ -1,7 +1,7 @@
 from torch import nn
-from src.deeploglizer.common.utils import mask_vectors_in_batch_by_duplicate_node
-from src.deeploglizer.models import ForcastBasedModel
-from src.deeploglizer.models.module import Encoder, Decoder
+from logAnalyzer.common.utils import mask_vectors_in_batch_by_duplicate_node
+from logAnalyzer.models import ForcastBasedModel
+from logAnalyzer.models.module import Encoder, Decoder
 
 
 class SS_Net(ForcastBasedModel):

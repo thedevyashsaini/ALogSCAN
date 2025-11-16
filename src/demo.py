@@ -8,10 +8,10 @@ sys.path.append("../")
 import argparse
 from torch.utils.data import DataLoader
 
-from deeploglizer.models.ss_network import SS_Net
-from deeploglizer.common.preprocess import FeatureExtractor
-from deeploglizer.common.dataloader import load_sessions, log_dataset
-from deeploglizer.common.utils import seed_everything, dump_params, dump_final_results, metric_list
+from logAnalyzer.models.ss_network import SS_Net
+from logAnalyzer.common.preprocess import FeatureExtractor
+from logAnalyzer.common.dataloader import load_sessions, log_dataset
+from logAnalyzer.common.utils import seed_everything, dump_params, dump_final_results, metric_list
 from sklearn.model_selection import StratifiedShuffleSplit
 
 parser = argparse.ArgumentParser()

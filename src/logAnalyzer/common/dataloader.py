@@ -16,7 +16,7 @@ from collections import OrderedDict, defaultdict, Counter
 from torch.utils.data import Dataset
 from sklearn.model_selection import StratifiedShuffleSplit
 
-from src.deeploglizer.common.utils import decision
+from logAnalyzer.common.utils import decision
 
 
 def load_sessions(data_dir,

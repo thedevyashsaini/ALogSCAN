@@ -17,8 +17,8 @@ from sklearn.metrics import (accuracy_score,
                              average_precision_score,
                              matthews_corrcoef)
 
-from src.deeploglizer.common.utils import set_device, tensor2flatten_arr
-from src.deeploglizer.common.lr import PolynomialDecayLR
+from logAnalyzer.common.utils import set_device, tensor2flatten_arr
+from logAnalyzer.common.lr import PolynomialDecayLR
 
 import warnings
 warnings.filterwarnings('ignore')

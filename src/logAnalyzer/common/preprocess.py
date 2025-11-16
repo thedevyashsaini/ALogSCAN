@@ -15,7 +15,7 @@ from tqdm import tqdm
 
 sys.path.append("../../")
 
-from src.deeploglizer.common.utils import (json_pretty_dump, dump_pickle, load_pickle)
+from logAnalyzer.common.utils import (json_pretty_dump, dump_pickle, load_pickle)
 
 # logging.basicConfig(filename='preprocess.log', level=logging.INFO)
 
