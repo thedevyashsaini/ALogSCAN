@@ -157,14 +157,26 @@ def new_mask_feature(x: Tensor,
     mask = mask.unsqueeze(0).repeat(x.size(0), 1, 1)
     return x, mask
 
-def mask_vectors_in_batch_by_duplicate_node(x, p=-1.0, fill_value=0.0):
+def mask_vectors_in_batch_by_duplicate_node(x, p=-1.0, fill_value=0.0, strategy='random'):
     # Find the duplicate vectors along the last dimension
     reshape_x = x.view(-1, x.size(-1))
 
     _, inv, counts = torch.unique(reshape_x, dim=-2, return_inverse=True, return_counts=True)
 
     if p == -1.0:
-        p_value = int(np.random.choice([0.05, 0.1, 0.15, 0.2], 1)[0] * len(counts))
+        if strategy == 'random':
+            # Original DFLF: Random sampling from predefined set
+            p_value = int(np.random.choice([0.05, 0.1, 0.15, 0.2], 1)[0] * len(counts))
+        elif strategy == 'fixed-topk':
+            # Fixed threshold: Always mask top 15% most frequent logs
+            p_value = int(0.15 * len(counts))
+        elif strategy == 'statistical':
+            # Statistical threshold: Based on mean + 0.5*std of frequency distribution
+            counts_np = counts.cpu().numpy().astype(float)
+            threshold_ratio = min(0.25, max(0.05, (np.mean(counts_np) + 0.5 * np.std(counts_np)) / np.max(counts_np)))
+            p_value = int(threshold_ratio * len(counts))
+        else:
+            p_value = int(0.15 * len(counts))  # fallback to fixed
     else:
         if p == 0.0:
             return x, torch.ones_like(x, dtype=torch.bool)

@@ -20,6 +20,7 @@ class SS_Net(ForcastBasedModel):
         masking_by='frequency',
         masking_mode='no_mask',
         masking_ratio=0.5,
+        masking_strategy='random',
         loss_ablation='all',
         feature_transpose=False,
         model_save_path="./ae_models",
@@ -79,6 +80,7 @@ class SS_Net(ForcastBasedModel):
         self.masking_by = masking_by
         self.masking_mode = masking_mode
         self.masking_ratio = masking_ratio
+        self.masking_strategy = masking_strategy
         self.feature_transpose = feature_transpose
         self.loss_ablation = loss_ablation
         self.window_size = window_size
@@ -130,7 +132,7 @@ class SS_Net(ForcastBasedModel):
         else:
             x = self.embedder(x).float()
 
-        masked_x, mask = mask_vectors_in_batch_by_duplicate_node(x, p=self.masking_ratio, fill_value=0.0)
+        masked_x, mask = mask_vectors_in_batch_by_duplicate_node(x, p=self.masking_ratio, fill_value=0.0, strategy=self.masking_strategy)
 
         # expand to multiple channels
         x = x.unsqueeze(1).repeat(1, len(self.kernel_sizes), 1, 1)

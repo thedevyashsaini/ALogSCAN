@@ -28,6 +28,7 @@ parser.add_argument('--reconstruction_mode', default='global2local', type=str, h
 parser.add_argument('--masking_by', default='frequency', type=str, help='The masking strategy')
 parser.add_argument('--masking_mode', default='row_value_mask', help='Masking mode')
 parser.add_argument('--masking_ratio', default=-1.0, type=float, help='The masking ratio')  # -1.0 randomly sampling from a set
+parser.add_argument('--masking_strategy', default='random', type=str, choices=['random', 'fixed-topk', 'statistical'], help='DFLF masking strategy: random (original), fixed-topk, or statistical')
 parser.add_argument('--session_level', default='entry', choices=['entry', 'secs'])
 parser.add_argument('--loss_ablation', default="all", type=str,  help='Ablation loss test')
 

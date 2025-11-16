@@ -571,3 +571,786 @@
 2024-08-16 16:39:10,344 P8264 INFO {'best anomaly ratio setting: 0.086'}
 2024-08-16 16:39:10,346 P8264 INFO 0 epoches left before early stop
 2024-08-16 16:39:10,358 P8264 INFO Early stop at epoch: 25
+2025-11-16 12:31:33,013 P19712 INFO {
+    "framework": "SSD",
+    "hidden_size": 128,
+    "embedding_dim": 32,
+    "num_layers": 2,
+    "encoder_type": "cnn",
+    "reconstruction_mode": "global2local",
+    "masking_by": "frequency",
+    "masking_mode": "row_value_mask",
+    "masking_ratio": -1.0,
+    "session_level": "entry",
+    "loss_ablation": "all",
+    "alpha": 50.0,
+    "beta": 1.0,
+    "gamma": 1.0,
+    "kernel_sizes": [
+        2,
+        3,
+        4
+    ],
+    "decoder_type": "deconv",
+    "pooling_mode": "max",
+    "datasets": [
+        "bgl"
+    ],
+    "data_dir": "../data/processed/",
+    "session_size": 100,
+    "window_size": 100,
+    "stride": 100,
+    "without_duplicate": true,
+    "feature_type": "semantics",
+    "embedding_type": "tfidf",
+    "label_type": "none",
+    "pretrain_path": null,
+    "max_token_len": 50,
+    "min_token_count": 1,
+    "semi_supervised": true,
+    "no_validation": true,
+    "train_ratio": 0.8,
+    "sampling_size": 1.0,
+    "run_times": 3,
+    "epoches": 100,
+    "batch_size": 64,
+    "patience": 20,
+    "weight_decay": 0.0001,
+    "peak_lr": 0.01,
+    "end_lr": 0.0001,
+    "warmup_epoch": 0,
+    "show_statistics": false,
+    "random_seed": 42,
+    "gpu": 0,
+    "cache": false,
+    "dataset": "bgl",
+    "window_type": "sliding",
+    "eval_type": "session",
+    "hash_id": "b69e9392"
+}
+2025-11-16 12:31:33,155 P19712 INFO Start training on 64 batches with cuda:0.
+2025-11-16 12:31:54,582 P19712 INFO Epoch 1/100, training loss: 0.03621 [21.43s]
+2025-11-16 12:31:54,582 P19712 INFO Evaluating test data.
+2025-11-16 12:31:54,984 P19712 INFO Finish inference [0.40s]
+2025-11-16 12:31:59,405 P19712 INFO {'f1': '0.7834', 'rc': '0.6589', 'pc': '0.9659', 'prc': '0.8580', 'roc': '0.9766', 'apc': '0.8588', 'acc': '0.9625', 'mcc': '0.7805'}
+2025-11-16 12:31:59,405 P19712 INFO {'best anomaly ratio setting: 0.066'}
+2025-11-16 12:31:59,405 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 12:32:13,907 P19712 INFO Epoch 2/100, training loss: 0.01055 [14.49s]
+2025-11-16 12:32:13,908 P19712 INFO Evaluating test data.
+2025-11-16 12:32:14,275 P19712 INFO Finish inference [0.37s]
+2025-11-16 12:32:18,613 P19712 INFO {'f1': '0.7378', 'rc': '0.9922', 'pc': '0.5872', 'prc': '0.8333', 'roc': '0.9764', 'apc': '0.8346', 'acc': '0.9274', 'mcc': '0.7313'}
+2025-11-16 12:32:18,614 P19712 INFO {'best anomaly ratio setting: 0.175'}
+2025-11-16 12:32:18,614 P19712 INFO 19 epoches left before early stop
+2025-11-16 12:32:33,427 P19712 INFO Epoch 3/100, training loss: 0.00697 [14.81s]
+2025-11-16 12:32:33,428 P19712 INFO Evaluating test data.
+2025-11-16 12:32:33,780 P19712 INFO Finish inference [0.35s]
+2025-11-16 12:32:38,177 P19712 INFO {'f1': '0.7464', 'rc': '0.9922', 'pc': '0.5981', 'prc': '0.8301', 'roc': '0.9757', 'apc': '0.8312', 'acc': '0.9306', 'mcc': '0.7395'}
+2025-11-16 12:32:38,178 P19712 INFO {'best anomaly ratio setting: 0.166'}
+2025-11-16 12:32:38,178 P19712 INFO 18 epoches left before early stop
+2025-11-16 12:32:52,738 P19712 INFO Epoch 4/100, training loss: 0.00466 [14.56s]
+2025-11-16 12:32:52,739 P19712 INFO Evaluating test data.
+2025-11-16 12:32:53,104 P19712 INFO Finish inference [0.37s]
+2025-11-16 12:32:57,625 P19712 INFO {'f1': '0.7522', 'rc': '1.0000', 'pc': '0.6028', 'prc': '0.8218', 'roc': '0.9746', 'apc': '0.8231', 'acc': '0.9322', 'mcc': '0.7465'}
+2025-11-16 12:32:57,625 P19712 INFO {'best anomaly ratio setting: 0.166'}
+2025-11-16 12:32:57,625 P19712 INFO 17 epoches left before early stop
+2025-11-16 12:33:12,312 P19712 INFO Epoch 5/100, training loss: 0.00480 [14.69s]
+2025-11-16 12:33:12,313 P19712 INFO Evaluating test data.
+2025-11-16 12:33:12,677 P19712 INFO Finish inference [0.36s]
+2025-11-16 12:33:16,950 P19712 INFO {'f1': '0.7522', 'rc': '1.0000', 'pc': '0.6028', 'prc': '0.8058', 'roc': '0.9717', 'apc': '0.8068', 'acc': '0.9322', 'mcc': '0.7465'}
+2025-11-16 12:33:16,951 P19712 INFO {'best anomaly ratio setting: 0.166'}
+2025-11-16 12:33:16,951 P19712 INFO 16 epoches left before early stop
+2025-11-16 12:33:31,408 P19712 INFO Epoch 6/100, training loss: 0.00257 [14.46s]
+2025-11-16 12:33:31,408 P19712 INFO Evaluating test data.
+2025-11-16 12:33:31,790 P19712 INFO Finish inference [0.38s]
+2025-11-16 12:33:35,983 P19712 INFO {'f1': '0.7576', 'rc': '0.9690', 'pc': '0.6219', 'prc': '0.8133', 'roc': '0.9729', 'apc': '0.8144', 'acc': '0.9362', 'mcc': '0.7464'}
+2025-11-16 12:33:35,983 P19712 INFO {'best anomaly ratio setting: 0.155'}
+2025-11-16 12:33:35,984 P19712 INFO 15 epoches left before early stop
+2025-11-16 12:33:50,349 P19712 INFO Epoch 7/100, training loss: 0.00375 [14.37s]
+2025-11-16 12:33:50,349 P19712 INFO Evaluating test data.
+2025-11-16 12:33:50,727 P19712 INFO Finish inference [0.38s]
+2025-11-16 12:33:55,266 P19712 INFO {'f1': '0.7636', 'rc': '0.9767', 'pc': '0.6269', 'prc': '0.8314', 'roc': '0.9764', 'apc': '0.8323', 'acc': '0.9378', 'mcc': '0.7536'}
+2025-11-16 12:33:55,266 P19712 INFO {'best anomaly ratio setting: 0.155'}
+2025-11-16 12:33:55,266 P19712 INFO 14 epoches left before early stop
+2025-11-16 12:34:09,966 P19712 INFO Epoch 8/100, training loss: 0.00324 [14.70s]
+2025-11-16 12:34:09,966 P19712 INFO Evaluating test data.
+2025-11-16 12:34:10,338 P19712 INFO Finish inference [0.37s]
+2025-11-16 12:34:14,755 P19712 INFO {'f1': '0.7522', 'rc': '1.0000', 'pc': '0.6028', 'prc': '0.8462', 'roc': '0.9786', 'apc': '0.8471', 'acc': '0.9322', 'mcc': '0.7465'}
+2025-11-16 12:34:14,757 P19712 INFO {'best anomaly ratio setting: 0.166'}
+2025-11-16 12:34:14,757 P19712 INFO 13 epoches left before early stop
+2025-11-16 12:34:29,462 P19712 INFO Epoch 9/100, training loss: 0.00368 [14.71s]
+2025-11-16 12:34:29,462 P19712 INFO Evaluating test data.
+2025-11-16 12:34:29,850 P19712 INFO Finish inference [0.39s]
+2025-11-16 12:34:34,500 P19712 INFO {'f1': '0.7576', 'rc': '0.9690', 'pc': '0.6219', 'prc': '0.8525', 'roc': '0.9795', 'apc': '0.8534', 'acc': '0.9362', 'mcc': '0.7464'}
+2025-11-16 12:34:34,501 P19712 INFO {'best anomaly ratio setting: 0.155'}
+2025-11-16 12:34:34,501 P19712 INFO 12 epoches left before early stop
+2025-11-16 12:34:49,253 P19712 INFO Epoch 10/100, training loss: 0.00168 [14.75s]
+2025-11-16 12:34:49,253 P19712 INFO Evaluating test data.
+2025-11-16 12:34:49,627 P19712 INFO Finish inference [0.37s]
+2025-11-16 12:34:54,282 P19712 INFO {'f1': '0.7576', 'rc': '0.9690', 'pc': '0.6219', 'prc': '0.8432', 'roc': '0.9783', 'apc': '0.8442', 'acc': '0.9362', 'mcc': '0.7464'}
+2025-11-16 12:34:54,282 P19712 INFO {'best anomaly ratio setting: 0.155'}
+2025-11-16 12:34:54,283 P19712 INFO 11 epoches left before early stop
+2025-11-16 12:35:10,362 P19712 INFO Epoch 11/100, training loss: 0.00214 [16.08s]
+2025-11-16 12:35:10,362 P19712 INFO Evaluating test data.
+2025-11-16 12:35:10,840 P19712 INFO Finish inference [0.48s]
+2025-11-16 12:35:15,911 P19712 INFO {'f1': '0.7686', 'rc': '0.7597', 'pc': '0.7778', 'prc': '0.8631', 'roc': '0.9807', 'apc': '0.8637', 'acc': '0.9530', 'mcc': '0.7425'}
+2025-11-16 12:35:15,911 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:35:15,911 P19712 INFO 10 epoches left before early stop
+2025-11-16 12:35:31,035 P19712 INFO Epoch 12/100, training loss: 0.00358 [15.12s]
+2025-11-16 12:35:31,035 P19712 INFO Evaluating test data.
+2025-11-16 12:35:31,524 P19712 INFO Finish inference [0.49s]
+2025-11-16 12:35:38,946 P19712 INFO {'f1': '0.7576', 'rc': '0.9690', 'pc': '0.6219', 'prc': '0.8199', 'roc': '0.9737', 'apc': '0.8207', 'acc': '0.9362', 'mcc': '0.7464'}
+2025-11-16 12:35:38,947 P19712 INFO {'best anomaly ratio setting: 0.155'}
+2025-11-16 12:35:38,947 P19712 INFO 9 epoches left before early stop
+2025-11-16 12:35:54,641 P19712 INFO Epoch 13/100, training loss: 0.00122 [15.69s]
+2025-11-16 12:35:54,641 P19712 INFO Evaluating test data.
+2025-11-16 12:35:55,164 P19712 INFO Finish inference [0.52s]
+2025-11-16 12:36:01,492 P19712 INFO {'f1': '0.7576', 'rc': '0.9690', 'pc': '0.6219', 'prc': '0.8188', 'roc': '0.9738', 'apc': '0.8198', 'acc': '0.9362', 'mcc': '0.7464'}
+2025-11-16 12:36:01,493 P19712 INFO {'best anomaly ratio setting: 0.155'}
+2025-11-16 12:36:01,493 P19712 INFO 8 epoches left before early stop
+2025-11-16 12:36:16,658 P19712 INFO Epoch 14/100, training loss: 0.00123 [15.17s]
+2025-11-16 12:36:16,658 P19712 INFO Evaluating test data.
+2025-11-16 12:36:17,136 P19712 INFO Finish inference [0.48s]
+2025-11-16 12:36:24,869 P19712 INFO {'f1': '0.7826', 'rc': '0.6977', 'pc': '0.8911', 'prc': '0.8719', 'roc': '0.9819', 'apc': '0.8717', 'acc': '0.9601', 'mcc': '0.7679'}
+2025-11-16 12:36:24,869 P19712 INFO {'best anomaly ratio setting: 0.075'}
+2025-11-16 12:36:24,870 P19712 INFO 7 epoches left before early stop
+2025-11-16 12:36:40,576 P19712 INFO Epoch 15/100, training loss: 0.00195 [15.71s]
+2025-11-16 12:36:40,576 P19712 INFO Evaluating test data.
+2025-11-16 12:36:41,072 P19712 INFO Finish inference [0.49s]
+2025-11-16 12:36:48,886 P19712 INFO {'f1': '0.7739', 'rc': '0.6899', 'pc': '0.8812', 'prc': '0.8660', 'roc': '0.9815', 'apc': '0.8669', 'acc': '0.9585', 'mcc': '0.7583'}
+2025-11-16 12:36:48,887 P19712 INFO {'best anomaly ratio setting: 0.075'}
+2025-11-16 12:36:48,887 P19712 INFO 6 epoches left before early stop
+2025-11-16 12:37:04,597 P19712 INFO Epoch 16/100, training loss: 0.00140 [15.71s]
+2025-11-16 12:37:04,598 P19712 INFO Evaluating test data.
+2025-11-16 12:37:05,150 P19712 INFO Finish inference [0.55s]
+2025-11-16 12:37:12,927 P19712 INFO {'f1': '0.8430', 'rc': '0.7907', 'pc': '0.9027', 'prc': '0.9017', 'roc': '0.9865', 'apc': '0.9025', 'acc': '0.9697', 'mcc': '0.8285'}
+2025-11-16 12:37:12,927 P19712 INFO {'best anomaly ratio setting: 0.086'}
+2025-11-16 12:37:12,928 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 12:37:28,759 P19712 INFO Epoch 17/100, training loss: 0.00141 [15.83s]
+2025-11-16 12:37:28,759 P19712 INFO Evaluating test data.
+2025-11-16 12:37:29,262 P19712 INFO Finish inference [0.50s]
+2025-11-16 12:37:36,875 P19712 INFO {'f1': '0.8430', 'rc': '0.7907', 'pc': '0.9027', 'prc': '0.9159', 'roc': '0.9894', 'apc': '0.9168', 'acc': '0.9697', 'mcc': '0.8285'}
+2025-11-16 12:37:36,876 P19712 INFO {'best anomaly ratio setting: 0.086'}
+2025-11-16 12:37:36,876 P19712 INFO 19 epoches left before early stop
+2025-11-16 12:37:52,667 P19712 INFO Epoch 18/100, training loss: 0.00180 [15.79s]
+2025-11-16 12:37:52,668 P19712 INFO Evaluating test data.
+2025-11-16 12:37:53,179 P19712 INFO Finish inference [0.51s]
+2025-11-16 12:37:58,086 P19712 INFO {'f1': '0.8435', 'rc': '0.7519', 'pc': '0.9604', 'prc': '0.9102', 'roc': '0.9873', 'apc': '0.9107', 'acc': '0.9713', 'mcc': '0.8354'}
+2025-11-16 12:37:58,086 P19712 INFO {'best anomaly ratio setting: 0.075'}
+2025-11-16 12:37:58,086 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 12:38:12,726 P19712 INFO Epoch 19/100, training loss: 0.00086 [14.64s]
+2025-11-16 12:38:12,726 P19712 INFO Evaluating test data.
+2025-11-16 12:38:13,121 P19712 INFO Finish inference [0.40s]
+2025-11-16 12:38:19,176 P19712 INFO {'f1': '0.8435', 'rc': '0.7519', 'pc': '0.9604', 'prc': '0.9103', 'roc': '0.9878', 'apc': '0.9111', 'acc': '0.9713', 'mcc': '0.8354'}
+2025-11-16 12:38:19,177 P19712 INFO {'best anomaly ratio setting: 0.075'}
+2025-11-16 12:38:19,177 P19712 INFO 19 epoches left before early stop
+2025-11-16 12:38:34,271 P19712 INFO Epoch 20/100, training loss: 0.00079 [15.09s]
+2025-11-16 12:38:34,271 P19712 INFO Evaluating test data.
+2025-11-16 12:38:34,669 P19712 INFO Finish inference [0.40s]
+2025-11-16 12:38:40,109 P19712 INFO {'f1': '0.8240', 'rc': '0.8527', 'pc': '0.7971', 'prc': '0.9025', 'roc': '0.9875', 'apc': '0.9035', 'acc': '0.9625', 'mcc': '0.8036'}
+2025-11-16 12:38:40,109 P19712 INFO {'best anomaly ratio setting: 0.105'}
+2025-11-16 12:38:40,109 P19712 INFO 18 epoches left before early stop
+2025-11-16 12:38:55,251 P19712 INFO Epoch 21/100, training loss: 0.00047 [15.14s]
+2025-11-16 12:38:55,252 P19712 INFO Evaluating test data.
+2025-11-16 12:38:55,617 P19712 INFO Finish inference [0.37s]
+2025-11-16 12:39:00,092 P19712 INFO {'f1': '0.7926', 'rc': '0.6667', 'pc': '0.9773', 'prc': '0.8861', 'roc': '0.9838', 'apc': '0.8867', 'acc': '0.9641', 'mcc': '0.7907'}
+2025-11-16 12:39:00,093 P19712 INFO {'best anomaly ratio setting: 0.066'}
+2025-11-16 12:39:00,093 P19712 INFO 17 epoches left before early stop
+2025-11-16 12:39:15,005 P19712 INFO Epoch 22/100, training loss: 0.00042 [14.91s]
+2025-11-16 12:39:15,005 P19712 INFO Evaluating test data.
+2025-11-16 12:39:15,378 P19712 INFO Finish inference [0.37s]
+2025-11-16 12:39:19,999 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9680', 'roc': '0.9970', 'apc': '0.9685', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 12:39:19,999 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:39:20,000 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 12:39:34,590 P19712 INFO Epoch 23/100, training loss: 0.00062 [14.58s]
+2025-11-16 12:39:34,590 P19712 INFO Evaluating test data.
+2025-11-16 12:39:34,964 P19712 INFO Finish inference [0.37s]
+2025-11-16 12:39:39,277 P19712 INFO {'f1': '0.9449', 'rc': '0.9302', 'pc': '0.9600', 'prc': '0.9703', 'roc': '0.9970', 'apc': '0.9705', 'acc': '0.9888', 'mcc': '0.9388'}
+2025-11-16 12:39:39,277 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:39:39,278 P19712 INFO 19 epoches left before early stop
+2025-11-16 12:39:53,872 P19712 INFO Epoch 24/100, training loss: 0.00032 [14.59s]
+2025-11-16 12:39:53,872 P19712 INFO Evaluating test data.
+2025-11-16 12:39:54,232 P19712 INFO Finish inference [0.36s]
+2025-11-16 12:39:58,679 P19712 INFO {'f1': '0.9490', 'rc': '0.9380', 'pc': '0.9603', 'prc': '0.9725', 'roc': '0.9975', 'apc': '0.9730', 'acc': '0.9896', 'mcc': '0.9433'}
+2025-11-16 12:39:58,679 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:39:58,679 P19712 INFO 18 epoches left before early stop
+2025-11-16 12:40:13,210 P19712 INFO Epoch 25/100, training loss: 0.00030 [14.53s]
+2025-11-16 12:40:13,211 P19712 INFO Evaluating test data.
+2025-11-16 12:40:13,602 P19712 INFO Finish inference [0.39s]
+2025-11-16 12:40:17,967 P19712 INFO {'f1': '0.9412', 'rc': '0.9302', 'pc': '0.9524', 'prc': '0.9649', 'roc': '0.9959', 'apc': '0.9652', 'acc': '0.9880', 'mcc': '0.9346'}
+2025-11-16 12:40:17,968 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:40:17,968 P19712 INFO 17 epoches left before early stop
+2025-11-16 12:40:33,092 P19712 INFO Epoch 26/100, training loss: 0.00050 [15.12s]
+2025-11-16 12:40:33,093 P19712 INFO Evaluating test data.
+2025-11-16 12:40:33,528 P19712 INFO Finish inference [0.43s]
+2025-11-16 12:40:39,216 P19712 INFO {'f1': '0.9490', 'rc': '0.9380', 'pc': '0.9603', 'prc': '0.9687', 'roc': '0.9967', 'apc': '0.9692', 'acc': '0.9896', 'mcc': '0.9433'}
+2025-11-16 12:40:39,216 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:40:39,216 P19712 INFO 16 epoches left before early stop
+2025-11-16 12:40:54,154 P19712 INFO Epoch 27/100, training loss: 0.00024 [14.94s]
+2025-11-16 12:40:54,154 P19712 INFO Evaluating test data.
+2025-11-16 12:40:54,611 P19712 INFO Finish inference [0.46s]
+2025-11-16 12:41:00,329 P19712 INFO {'f1': '0.9569', 'rc': '0.9457', 'pc': '0.9683', 'prc': '0.9750', 'roc': '0.9977', 'apc': '0.9753', 'acc': '0.9912', 'mcc': '0.9521'}
+2025-11-16 12:41:00,329 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:41:00,329 P19712 INFO 15 epoches left before early stop
+2025-11-16 12:41:15,479 P19712 INFO Epoch 28/100, training loss: 0.00027 [15.15s]
+2025-11-16 12:41:15,479 P19712 INFO Evaluating test data.
+2025-11-16 12:41:15,944 P19712 INFO Finish inference [0.46s]
+2025-11-16 12:41:21,838 P19712 INFO {'f1': '0.9490', 'rc': '0.9380', 'pc': '0.9603', 'prc': '0.9680', 'roc': '0.9965', 'apc': '0.9675', 'acc': '0.9896', 'mcc': '0.9433'}
+2025-11-16 12:41:21,838 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:41:21,839 P19712 INFO 14 epoches left before early stop
+2025-11-16 12:41:36,863 P19712 INFO Epoch 29/100, training loss: 0.00021 [15.02s]
+2025-11-16 12:41:36,864 P19712 INFO Evaluating test data.
+2025-11-16 12:41:37,297 P19712 INFO Finish inference [0.43s]
+2025-11-16 12:41:43,112 P19712 INFO {'f1': '0.9490', 'rc': '0.9380', 'pc': '0.9603', 'prc': '0.9687', 'roc': '0.9978', 'apc': '0.9698', 'acc': '0.9896', 'mcc': '0.9433'}
+2025-11-16 12:41:43,112 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:41:43,112 P19712 INFO 13 epoches left before early stop
+2025-11-16 12:41:58,379 P19712 INFO Epoch 30/100, training loss: 0.00024 [15.27s]
+2025-11-16 12:41:58,380 P19712 INFO Evaluating test data.
+2025-11-16 12:41:58,858 P19712 INFO Finish inference [0.48s]
+2025-11-16 12:42:04,878 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9775', 'roc': '0.9980', 'apc': '0.9778', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 12:42:04,879 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:42:04,879 P19712 INFO 12 epoches left before early stop
+2025-11-16 12:42:20,129 P19712 INFO Epoch 31/100, training loss: 0.00043 [15.25s]
+2025-11-16 12:42:20,129 P19712 INFO Evaluating test data.
+2025-11-16 12:42:20,613 P19712 INFO Finish inference [0.48s]
+2025-11-16 12:42:26,529 P19712 INFO {'f1': '0.9569', 'rc': '0.9457', 'pc': '0.9683', 'prc': '0.9642', 'roc': '0.9973', 'apc': '0.9655', 'acc': '0.9912', 'mcc': '0.9521'}
+2025-11-16 12:42:26,530 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:42:26,531 P19712 INFO 11 epoches left before early stop
+2025-11-16 12:42:41,719 P19712 INFO Epoch 32/100, training loss: 0.00018 [15.19s]
+2025-11-16 12:42:41,719 P19712 INFO Evaluating test data.
+2025-11-16 12:42:42,164 P19712 INFO Finish inference [0.44s]
+2025-11-16 12:42:47,787 P19712 INFO {'f1': '0.9490', 'rc': '0.9380', 'pc': '0.9603', 'prc': '0.9690', 'roc': '0.9974', 'apc': '0.9697', 'acc': '0.9896', 'mcc': '0.9433'}
+2025-11-16 12:42:47,788 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:42:47,788 P19712 INFO 10 epoches left before early stop
+2025-11-16 12:43:02,951 P19712 INFO Epoch 33/100, training loss: 0.00018 [15.16s]
+2025-11-16 12:43:02,951 P19712 INFO Evaluating test data.
+2025-11-16 12:43:03,395 P19712 INFO Finish inference [0.44s]
+2025-11-16 12:43:08,809 P19712 INFO {'f1': '0.9804', 'rc': '0.9690', 'pc': '0.9921', 'prc': '0.9780', 'roc': '0.9985', 'apc': '0.9785', 'acc': '0.9960', 'mcc': '0.9783'}
+2025-11-16 12:43:08,810 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:43:08,810 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 12:43:23,765 P19712 INFO Epoch 34/100, training loss: 0.00014 [14.95s]
+2025-11-16 12:43:23,765 P19712 INFO Evaluating test data.
+2025-11-16 12:43:24,194 P19712 INFO Finish inference [0.43s]
+2025-11-16 12:43:29,932 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9705', 'roc': '0.9985', 'apc': '0.9724', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 12:43:29,933 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:43:29,933 P19712 INFO 19 epoches left before early stop
+2025-11-16 12:43:45,032 P19712 INFO Epoch 35/100, training loss: 0.00018 [15.10s]
+2025-11-16 12:43:45,032 P19712 INFO Evaluating test data.
+2025-11-16 12:43:45,490 P19712 INFO Finish inference [0.46s]
+2025-11-16 12:43:51,037 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9572', 'roc': '0.9975', 'apc': '0.9598', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 12:43:51,038 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:43:51,038 P19712 INFO 18 epoches left before early stop
+2025-11-16 12:44:06,358 P19712 INFO Epoch 36/100, training loss: 0.00019 [15.32s]
+2025-11-16 12:44:06,358 P19712 INFO Evaluating test data.
+2025-11-16 12:44:06,727 P19712 INFO Finish inference [0.37s]
+2025-11-16 12:44:11,073 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9781', 'roc': '0.9986', 'apc': '0.9786', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 12:44:11,074 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:44:11,074 P19712 INFO 17 epoches left before early stop
+2025-11-16 12:44:25,875 P19712 INFO Epoch 37/100, training loss: 0.00013 [14.80s]
+2025-11-16 12:44:25,876 P19712 INFO Evaluating test data.
+2025-11-16 12:44:26,258 P19712 INFO Finish inference [0.38s]
+2025-11-16 12:44:30,972 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9625', 'roc': '0.9984', 'apc': '0.9653', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 12:44:30,972 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:44:30,973 P19712 INFO 16 epoches left before early stop
+2025-11-16 12:44:45,664 P19712 INFO Epoch 38/100, training loss: 0.00025 [14.69s]
+2025-11-16 12:44:45,664 P19712 INFO Evaluating test data.
+2025-11-16 12:44:46,146 P19712 INFO Finish inference [0.48s]
+2025-11-16 12:44:52,240 P19712 INFO {'f1': '0.9490', 'rc': '0.9380', 'pc': '0.9603', 'prc': '0.9728', 'roc': '0.9980', 'apc': '0.9735', 'acc': '0.9896', 'mcc': '0.9433'}
+2025-11-16 12:44:52,241 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:44:52,241 P19712 INFO 15 epoches left before early stop
+2025-11-16 12:45:07,136 P19712 INFO Epoch 39/100, training loss: 0.00013 [14.90s]
+2025-11-16 12:45:07,137 P19712 INFO Evaluating test data.
+2025-11-16 12:45:07,560 P19712 INFO Finish inference [0.42s]
+2025-11-16 12:45:13,289 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9751', 'roc': '0.9985', 'apc': '0.9759', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 12:45:13,290 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:45:13,290 P19712 INFO 14 epoches left before early stop
+2025-11-16 12:45:28,315 P19712 INFO Epoch 40/100, training loss: 0.00010 [15.03s]
+2025-11-16 12:45:28,315 P19712 INFO Evaluating test data.
+2025-11-16 12:45:28,747 P19712 INFO Finish inference [0.43s]
+2025-11-16 12:45:34,478 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9754', 'roc': '0.9985', 'apc': '0.9761', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 12:45:34,479 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:45:34,479 P19712 INFO 13 epoches left before early stop
+2025-11-16 12:45:49,657 P19712 INFO Epoch 41/100, training loss: 0.00013 [15.18s]
+2025-11-16 12:45:49,658 P19712 INFO Evaluating test data.
+2025-11-16 12:45:50,163 P19712 INFO Finish inference [0.51s]
+2025-11-16 12:45:55,971 P19712 INFO {'f1': '0.9412', 'rc': '0.9302', 'pc': '0.9524', 'prc': '0.9641', 'roc': '0.9969', 'apc': '0.9650', 'acc': '0.9880', 'mcc': '0.9346'}
+2025-11-16 12:45:55,972 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:45:55,972 P19712 INFO 12 epoches left before early stop
+2025-11-16 12:46:11,215 P19712 INFO Epoch 42/100, training loss: 0.00012 [15.24s]
+2025-11-16 12:46:11,215 P19712 INFO Evaluating test data.
+2025-11-16 12:46:11,667 P19712 INFO Finish inference [0.45s]
+2025-11-16 12:46:17,374 P19712 INFO {'f1': '0.9569', 'rc': '0.9457', 'pc': '0.9683', 'prc': '0.9668', 'roc': '0.9971', 'apc': '0.9677', 'acc': '0.9912', 'mcc': '0.9521'}
+2025-11-16 12:46:17,374 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:46:17,374 P19712 INFO 11 epoches left before early stop
+2025-11-16 12:46:32,517 P19712 INFO Epoch 43/100, training loss: 0.00019 [15.14s]
+2025-11-16 12:46:32,517 P19712 INFO Evaluating test data.
+2025-11-16 12:46:32,971 P19712 INFO Finish inference [0.45s]
+2025-11-16 12:46:38,560 P19712 INFO {'f1': '0.9490', 'rc': '0.9380', 'pc': '0.9603', 'prc': '0.9745', 'roc': '0.9982', 'apc': '0.9750', 'acc': '0.9896', 'mcc': '0.9433'}
+2025-11-16 12:46:38,560 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:46:38,560 P19712 INFO 10 epoches left before early stop
+2025-11-16 12:46:53,926 P19712 INFO Epoch 44/100, training loss: 0.00015 [15.37s]
+2025-11-16 12:46:53,927 P19712 INFO Evaluating test data.
+2025-11-16 12:46:54,376 P19712 INFO Finish inference [0.45s]
+2025-11-16 12:46:59,737 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9781', 'roc': '0.9983', 'apc': '0.9783', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 12:46:59,737 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:46:59,737 P19712 INFO 9 epoches left before early stop
+2025-11-16 12:47:14,765 P19712 INFO Epoch 45/100, training loss: 0.00021 [15.03s]
+2025-11-16 12:47:14,766 P19712 INFO Evaluating test data.
+2025-11-16 12:47:15,220 P19712 INFO Finish inference [0.45s]
+2025-11-16 12:47:20,789 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9759', 'roc': '0.9983', 'apc': '0.9764', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 12:47:20,789 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:47:20,789 P19712 INFO 8 epoches left before early stop
+2025-11-16 12:47:36,163 P19712 INFO Epoch 46/100, training loss: 0.00028 [15.37s]
+2025-11-16 12:47:36,164 P19712 INFO Evaluating test data.
+2025-11-16 12:47:36,635 P19712 INFO Finish inference [0.47s]
+2025-11-16 12:47:42,097 P19712 INFO {'f1': '0.8678', 'rc': '0.8140', 'pc': '0.9292', 'prc': '0.9405', 'roc': '0.9934', 'apc': '0.9412', 'acc': '0.9745', 'mcc': '0.8560'}
+2025-11-16 12:47:42,097 P19712 INFO {'best anomaly ratio setting: 0.086'}
+2025-11-16 12:47:42,097 P19712 INFO 7 epoches left before early stop
+2025-11-16 12:47:57,285 P19712 INFO Epoch 47/100, training loss: 0.00018 [15.19s]
+2025-11-16 12:47:57,285 P19712 INFO Evaluating test data.
+2025-11-16 12:47:57,753 P19712 INFO Finish inference [0.47s]
+2025-11-16 12:48:03,475 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9776', 'roc': '0.9983', 'apc': '0.9780', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 12:48:03,476 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:48:03,476 P19712 INFO 6 epoches left before early stop
+2025-11-16 12:48:18,514 P19712 INFO Epoch 48/100, training loss: 0.00029 [15.04s]
+2025-11-16 12:48:18,515 P19712 INFO Evaluating test data.
+2025-11-16 12:48:18,884 P19712 INFO Finish inference [0.37s]
+2025-11-16 12:48:23,624 P19712 INFO {'f1': '0.9804', 'rc': '0.9690', 'pc': '0.9921', 'prc': '0.9760', 'roc': '0.9981', 'apc': '0.9764', 'acc': '0.9960', 'mcc': '0.9783'}
+2025-11-16 12:48:23,624 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:48:23,624 P19712 INFO 5 epoches left before early stop
+2025-11-16 12:48:38,724 P19712 INFO Epoch 49/100, training loss: 0.00020 [15.10s]
+2025-11-16 12:48:38,724 P19712 INFO Evaluating test data.
+2025-11-16 12:48:39,125 P19712 INFO Finish inference [0.40s]
+2025-11-16 12:48:43,822 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9734', 'roc': '0.9976', 'apc': '0.9739', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 12:48:43,822 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:48:43,822 P19712 INFO 4 epoches left before early stop
+2025-11-16 12:48:58,485 P19712 INFO Epoch 50/100, training loss: 0.00013 [14.66s]
+2025-11-16 12:48:58,485 P19712 INFO Evaluating test data.
+2025-11-16 12:48:58,879 P19712 INFO Finish inference [0.39s]
+2025-11-16 12:49:03,334 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9721', 'roc': '0.9976', 'apc': '0.9726', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 12:49:03,334 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:49:03,334 P19712 INFO 3 epoches left before early stop
+2025-11-16 12:49:18,160 P19712 INFO Epoch 51/100, training loss: 0.00016 [14.83s]
+2025-11-16 12:49:18,161 P19712 INFO Evaluating test data.
+2025-11-16 12:49:18,615 P19712 INFO Finish inference [0.45s]
+2025-11-16 12:49:24,239 P19712 INFO {'f1': '0.9804', 'rc': '0.9690', 'pc': '0.9921', 'prc': '0.9762', 'roc': '0.9982', 'apc': '0.9767', 'acc': '0.9960', 'mcc': '0.9783'}
+2025-11-16 12:49:24,239 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:49:24,241 P19712 INFO 2 epoches left before early stop
+2025-11-16 12:49:39,302 P19712 INFO Epoch 52/100, training loss: 0.00022 [15.06s]
+2025-11-16 12:49:39,303 P19712 INFO Evaluating test data.
+2025-11-16 12:49:39,749 P19712 INFO Finish inference [0.45s]
+2025-11-16 12:49:45,091 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9761', 'roc': '0.9981', 'apc': '0.9765', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 12:49:45,091 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:49:45,091 P19712 INFO 1 epoches left before early stop
+2025-11-16 12:50:00,046 P19712 INFO Epoch 53/100, training loss: 0.00016 [14.95s]
+2025-11-16 12:50:00,047 P19712 INFO Evaluating test data.
+2025-11-16 12:50:00,478 P19712 INFO Finish inference [0.43s]
+2025-11-16 12:50:06,147 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9788', 'roc': '0.9985', 'apc': '0.9793', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 12:50:06,148 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:50:06,148 P19712 INFO 0 epoches left before early stop
+2025-11-16 12:50:06,149 P19712 INFO Early stop at epoch: 53
+2025-11-16 12:50:06,174 P19712 INFO Start training on 64 batches with cuda:0.
+2025-11-16 12:50:21,268 P19712 INFO Epoch 1/100, training loss: 0.03683 [15.09s]
+2025-11-16 12:50:21,269 P19712 INFO Evaluating test data.
+2025-11-16 12:50:21,715 P19712 INFO Finish inference [0.45s]
+2025-11-16 12:50:27,560 P19712 INFO {'f1': '0.7373', 'rc': '0.6202', 'pc': '0.9091', 'prc': '0.8336', 'roc': '0.9736', 'apc': '0.8342', 'acc': '0.9545', 'mcc': '0.7291'}
+2025-11-16 12:50:27,561 P19712 INFO {'best anomaly ratio setting: 0.066'}
+2025-11-16 12:50:27,561 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 12:50:42,753 P19712 INFO Epoch 2/100, training loss: 0.01203 [15.19s]
+2025-11-16 12:50:42,753 P19712 INFO Evaluating test data.
+2025-11-16 12:50:43,195 P19712 INFO Finish inference [0.44s]
+2025-11-16 12:50:49,135 P19712 INFO {'f1': '0.7753', 'rc': '0.6822', 'pc': '0.8980', 'prc': '0.8639', 'roc': '0.9797', 'apc': '0.8645', 'acc': '0.9593', 'mcc': '0.7620'}
+2025-11-16 12:50:49,135 P19712 INFO {'best anomaly ratio setting: 0.075'}
+2025-11-16 12:50:49,135 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 12:51:04,406 P19712 INFO Epoch 3/100, training loss: 0.00713 [15.27s]
+2025-11-16 12:51:04,406 P19712 INFO Evaluating test data.
+2025-11-16 12:51:04,846 P19712 INFO Finish inference [0.44s]
+2025-11-16 12:51:10,419 P19712 INFO {'f1': '0.7522', 'rc': '1.0000', 'pc': '0.6028', 'prc': '0.8411', 'roc': '0.9777', 'apc': '0.8419', 'acc': '0.9322', 'mcc': '0.7465'}
+2025-11-16 12:51:10,419 P19712 INFO {'best anomaly ratio setting: 0.166'}
+2025-11-16 12:51:10,419 P19712 INFO 19 epoches left before early stop
+2025-11-16 12:51:25,927 P19712 INFO Epoch 4/100, training loss: 0.01028 [15.51s]
+2025-11-16 12:51:25,927 P19712 INFO Evaluating test data.
+2025-11-16 12:51:26,379 P19712 INFO Finish inference [0.45s]
+2025-11-16 12:51:31,977 P19712 INFO {'f1': '0.7538', 'rc': '0.9612', 'pc': '0.6200', 'prc': '0.8433', 'roc': '0.9768', 'apc': '0.8440', 'acc': '0.9354', 'mcc': '0.7415'}
+2025-11-16 12:51:31,977 P19712 INFO {'best anomaly ratio setting: 0.155'}
+2025-11-16 12:51:31,978 P19712 INFO 18 epoches left before early stop
+2025-11-16 12:51:47,208 P19712 INFO Epoch 5/100, training loss: 0.00684 [15.23s]
+2025-11-16 12:51:47,209 P19712 INFO Evaluating test data.
+2025-11-16 12:51:47,673 P19712 INFO Finish inference [0.46s]
+2025-11-16 12:51:53,477 P19712 INFO {'f1': '0.7636', 'rc': '0.9767', 'pc': '0.6269', 'prc': '0.8491', 'roc': '0.9777', 'apc': '0.8498', 'acc': '0.9378', 'mcc': '0.7536'}
+2025-11-16 12:51:53,478 P19712 INFO {'best anomaly ratio setting: 0.155'}
+2025-11-16 12:51:53,478 P19712 INFO 17 epoches left before early stop
+2025-11-16 12:52:09,289 P19712 INFO Epoch 6/100, training loss: 0.00334 [15.81s]
+2025-11-16 12:52:09,289 P19712 INFO Evaluating test data.
+2025-11-16 12:52:09,808 P19712 INFO Finish inference [0.52s]
+2025-11-16 12:52:16,105 P19712 INFO {'f1': '0.7576', 'rc': '0.9690', 'pc': '0.6219', 'prc': '0.8542', 'roc': '0.9788', 'apc': '0.8549', 'acc': '0.9362', 'mcc': '0.7464'}
+2025-11-16 12:52:16,105 P19712 INFO {'best anomaly ratio setting: 0.155'}
+2025-11-16 12:52:16,105 P19712 INFO 16 epoches left before early stop
+2025-11-16 12:52:31,722 P19712 INFO Epoch 7/100, training loss: 0.00289 [15.62s]
+2025-11-16 12:52:31,723 P19712 INFO Evaluating test data.
+2025-11-16 12:52:32,140 P19712 INFO Finish inference [0.42s]
+2025-11-16 12:52:38,053 P19712 INFO {'f1': '0.7576', 'rc': '0.9690', 'pc': '0.6219', 'prc': '0.8369', 'roc': '0.9769', 'apc': '0.8379', 'acc': '0.9362', 'mcc': '0.7464'}
+2025-11-16 12:52:38,053 P19712 INFO {'best anomaly ratio setting: 0.155'}
+2025-11-16 12:52:38,053 P19712 INFO 15 epoches left before early stop
+2025-11-16 12:52:53,168 P19712 INFO Epoch 8/100, training loss: 0.00353 [15.12s]
+2025-11-16 12:52:53,169 P19712 INFO Evaluating test data.
+2025-11-16 12:52:53,690 P19712 INFO Finish inference [0.52s]
+2025-11-16 12:52:59,505 P19712 INFO {'f1': '0.7913', 'rc': '0.7054', 'pc': '0.9010', 'prc': '0.8680', 'roc': '0.9818', 'apc': '0.8690', 'acc': '0.9617', 'mcc': '0.7776'}
+2025-11-16 12:52:59,505 P19712 INFO {'best anomaly ratio setting: 0.075'}
+2025-11-16 12:52:59,506 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 12:53:14,841 P19712 INFO Epoch 9/100, training loss: 0.00234 [15.33s]
+2025-11-16 12:53:14,841 P19712 INFO Evaluating test data.
+2025-11-16 12:53:15,264 P19712 INFO Finish inference [0.42s]
+2025-11-16 12:53:20,189 P19712 INFO {'f1': '0.8430', 'rc': '0.7907', 'pc': '0.9027', 'prc': '0.8952', 'roc': '0.9862', 'apc': '0.8961', 'acc': '0.9697', 'mcc': '0.8285'}
+2025-11-16 12:53:20,189 P19712 INFO {'best anomaly ratio setting: 0.086'}
+2025-11-16 12:53:20,189 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 12:53:34,900 P19712 INFO Epoch 10/100, training loss: 0.00243 [14.71s]
+2025-11-16 12:53:34,900 P19712 INFO Evaluating test data.
+2025-11-16 12:53:35,262 P19712 INFO Finish inference [0.36s]
+2025-11-16 12:53:39,700 P19712 INFO {'f1': '0.7913', 'rc': '0.7054', 'pc': '0.9010', 'prc': '0.8855', 'roc': '0.9839', 'apc': '0.8862', 'acc': '0.9617', 'mcc': '0.7776'}
+2025-11-16 12:53:39,700 P19712 INFO {'best anomaly ratio setting: 0.075'}
+2025-11-16 12:53:39,701 P19712 INFO 19 epoches left before early stop
+2025-11-16 12:53:54,278 P19712 INFO Epoch 11/100, training loss: 0.00231 [14.58s]
+2025-11-16 12:53:54,279 P19712 INFO Evaluating test data.
+2025-11-16 12:53:54,674 P19712 INFO Finish inference [0.40s]
+2025-11-16 12:53:59,305 P19712 INFO {'f1': '0.8264', 'rc': '0.7752', 'pc': '0.8850', 'prc': '0.8895', 'roc': '0.9848', 'apc': '0.8904', 'acc': '0.9665', 'mcc': '0.8102'}
+2025-11-16 12:53:59,306 P19712 INFO {'best anomaly ratio setting: 0.086'}
+2025-11-16 12:53:59,306 P19712 INFO 18 epoches left before early stop
+2025-11-16 12:54:13,931 P19712 INFO Epoch 12/100, training loss: 0.00191 [14.63s]
+2025-11-16 12:54:13,932 P19712 INFO Evaluating test data.
+2025-11-16 12:54:14,312 P19712 INFO Finish inference [0.38s]
+2025-11-16 12:54:18,849 P19712 INFO {'f1': '0.7834', 'rc': '0.6589', 'pc': '0.9659', 'prc': '0.8579', 'roc': '0.9799', 'apc': '0.8590', 'acc': '0.9625', 'mcc': '0.7805'}
+2025-11-16 12:54:18,850 P19712 INFO {'best anomaly ratio setting: 0.066'}
+2025-11-16 12:54:18,851 P19712 INFO 17 epoches left before early stop
+2025-11-16 12:54:33,422 P19712 INFO Epoch 13/100, training loss: 0.00178 [14.57s]
+2025-11-16 12:54:33,422 P19712 INFO Evaluating test data.
+2025-11-16 12:54:33,780 P19712 INFO Finish inference [0.36s]
+2025-11-16 12:54:37,968 P19712 INFO {'f1': '0.7913', 'rc': '0.7054', 'pc': '0.9010', 'prc': '0.8746', 'roc': '0.9820', 'apc': '0.8754', 'acc': '0.9617', 'mcc': '0.7776'}
+2025-11-16 12:54:37,968 P19712 INFO {'best anomaly ratio setting: 0.075'}
+2025-11-16 12:54:37,969 P19712 INFO 16 epoches left before early stop
+2025-11-16 12:54:53,480 P19712 INFO Epoch 14/100, training loss: 0.00182 [15.51s]
+2025-11-16 12:54:53,481 P19712 INFO Evaluating test data.
+2025-11-16 12:54:53,924 P19712 INFO Finish inference [0.44s]
+2025-11-16 12:54:59,484 P19712 INFO {'f1': '0.8099', 'rc': '0.7597', 'pc': '0.8673', 'prc': '0.8862', 'roc': '0.9837', 'apc': '0.8870', 'acc': '0.9633', 'mcc': '0.7918'}
+2025-11-16 12:54:59,484 P19712 INFO {'best anomaly ratio setting: 0.086'}
+2025-11-16 12:54:59,485 P19712 INFO 15 epoches left before early stop
+2025-11-16 12:55:14,593 P19712 INFO Epoch 15/100, training loss: 0.00111 [15.11s]
+2025-11-16 12:55:14,594 P19712 INFO Evaluating test data.
+2025-11-16 12:55:15,098 P19712 INFO Finish inference [0.50s]
+2025-11-16 12:55:20,844 P19712 INFO {'f1': '0.8784', 'rc': '0.8682', 'pc': '0.8889', 'prc': '0.9263', 'roc': '0.9898', 'apc': '0.9270', 'acc': '0.9753', 'mcc': '0.8647'}
+2025-11-16 12:55:20,845 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:55:20,845 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 12:55:35,991 P19712 INFO Epoch 16/100, training loss: 0.00149 [15.14s]
+2025-11-16 12:55:35,992 P19712 INFO Evaluating test data.
+2025-11-16 12:55:36,407 P19712 INFO Finish inference [0.41s]
+2025-11-16 12:55:42,130 P19712 INFO {'f1': '0.8784', 'rc': '0.8682', 'pc': '0.8889', 'prc': '0.9373', 'roc': '0.9922', 'apc': '0.9378', 'acc': '0.9753', 'mcc': '0.8647'}
+2025-11-16 12:55:42,130 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:55:42,130 P19712 INFO 19 epoches left before early stop
+2025-11-16 12:55:57,236 P19712 INFO Epoch 17/100, training loss: 0.00166 [15.10s]
+2025-11-16 12:55:57,237 P19712 INFO Evaluating test data.
+2025-11-16 12:55:57,725 P19712 INFO Finish inference [0.49s]
+2025-11-16 12:56:03,596 P19712 INFO {'f1': '0.9490', 'rc': '0.9380', 'pc': '0.9603', 'prc': '0.9640', 'roc': '0.9968', 'apc': '0.9647', 'acc': '0.9896', 'mcc': '0.9433'}
+2025-11-16 12:56:03,596 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:56:03,596 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 12:56:18,961 P19712 INFO Epoch 18/100, training loss: 0.00107 [15.36s]
+2025-11-16 12:56:18,961 P19712 INFO Evaluating test data.
+2025-11-16 12:56:19,434 P19712 INFO Finish inference [0.47s]
+2025-11-16 12:56:25,147 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9703', 'roc': '0.9970', 'apc': '0.9708', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 12:56:25,148 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:56:25,149 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 12:56:39,758 P19712 INFO Epoch 19/100, training loss: 0.00062 [14.60s]
+2025-11-16 12:56:39,758 P19712 INFO Evaluating test data.
+2025-11-16 12:56:40,112 P19712 INFO Finish inference [0.35s]
+2025-11-16 12:56:44,362 P19712 INFO {'f1': '0.9569', 'rc': '0.9457', 'pc': '0.9683', 'prc': '0.9668', 'roc': '0.9969', 'apc': '0.9673', 'acc': '0.9912', 'mcc': '0.9521'}
+2025-11-16 12:56:44,362 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:56:44,362 P19712 INFO 19 epoches left before early stop
+2025-11-16 12:56:58,788 P19712 INFO Epoch 20/100, training loss: 0.00062 [14.43s]
+2025-11-16 12:56:58,788 P19712 INFO Evaluating test data.
+2025-11-16 12:56:59,145 P19712 INFO Finish inference [0.36s]
+2025-11-16 12:57:03,566 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9720', 'roc': '0.9976', 'apc': '0.9725', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 12:57:03,566 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:57:03,567 P19712 INFO 18 epoches left before early stop
+2025-11-16 12:57:18,422 P19712 INFO Epoch 21/100, training loss: 0.00064 [14.85s]
+2025-11-16 12:57:18,423 P19712 INFO Evaluating test data.
+2025-11-16 12:57:18,778 P19712 INFO Finish inference [0.36s]
+2025-11-16 12:57:23,091 P19712 INFO {'f1': '0.9569', 'rc': '0.9457', 'pc': '0.9683', 'prc': '0.9738', 'roc': '0.9980', 'apc': '0.9743', 'acc': '0.9912', 'mcc': '0.9521'}
+2025-11-16 12:57:23,091 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:57:23,091 P19712 INFO 17 epoches left before early stop
+2025-11-16 12:57:37,507 P19712 INFO Epoch 22/100, training loss: 0.00046 [14.42s]
+2025-11-16 12:57:37,507 P19712 INFO Evaluating test data.
+2025-11-16 12:57:37,870 P19712 INFO Finish inference [0.36s]
+2025-11-16 12:57:42,088 P19712 INFO {'f1': '0.9569', 'rc': '0.9457', 'pc': '0.9683', 'prc': '0.9752', 'roc': '0.9983', 'apc': '0.9757', 'acc': '0.9912', 'mcc': '0.9521'}
+2025-11-16 12:57:42,088 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:57:42,089 P19712 INFO 16 epoches left before early stop
+2025-11-16 12:57:56,500 P19712 INFO Epoch 23/100, training loss: 0.00047 [14.41s]
+2025-11-16 12:57:56,501 P19712 INFO Evaluating test data.
+2025-11-16 12:57:56,893 P19712 INFO Finish inference [0.39s]
+2025-11-16 12:58:01,356 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9776', 'roc': '0.9979', 'apc': '0.9778', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 12:58:01,356 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:58:01,356 P19712 INFO 15 epoches left before early stop
+2025-11-16 12:58:16,400 P19712 INFO Epoch 24/100, training loss: 0.00057 [15.04s]
+2025-11-16 12:58:16,402 P19712 INFO Evaluating test data.
+2025-11-16 12:58:16,861 P19712 INFO Finish inference [0.46s]
+2025-11-16 12:58:22,109 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9740', 'roc': '0.9977', 'apc': '0.9745', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 12:58:22,109 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:58:22,110 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 12:58:36,648 P19712 INFO Epoch 25/100, training loss: 0.00074 [14.53s]
+2025-11-16 12:58:36,648 P19712 INFO Evaluating test data.
+2025-11-16 12:58:37,019 P19712 INFO Finish inference [0.37s]
+2025-11-16 12:58:43,328 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9763', 'roc': '0.9979', 'apc': '0.9767', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 12:58:43,328 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:58:43,328 P19712 INFO 19 epoches left before early stop
+2025-11-16 12:58:58,773 P19712 INFO Epoch 26/100, training loss: 0.00074 [15.44s]
+2025-11-16 12:58:58,774 P19712 INFO Evaluating test data.
+2025-11-16 12:58:59,281 P19712 INFO Finish inference [0.51s]
+2025-11-16 12:59:04,858 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9709', 'roc': '0.9971', 'apc': '0.9714', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 12:59:04,859 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:59:04,859 P19712 INFO 18 epoches left before early stop
+2025-11-16 12:59:19,467 P19712 INFO Epoch 27/100, training loss: 0.00044 [14.61s]
+2025-11-16 12:59:19,468 P19712 INFO Evaluating test data.
+2025-11-16 12:59:19,844 P19712 INFO Finish inference [0.38s]
+2025-11-16 12:59:24,739 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9726', 'roc': '0.9974', 'apc': '0.9730', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 12:59:24,739 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:59:24,739 P19712 INFO 17 epoches left before early stop
+2025-11-16 12:59:39,585 P19712 INFO Epoch 28/100, training loss: 0.00032 [14.85s]
+2025-11-16 12:59:39,586 P19712 INFO Evaluating test data.
+2025-11-16 12:59:39,956 P19712 INFO Finish inference [0.37s]
+2025-11-16 12:59:44,721 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9791', 'roc': '0.9981', 'apc': '0.9794', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 12:59:44,722 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 12:59:44,722 P19712 INFO 16 epoches left before early stop
+2025-11-16 12:59:59,459 P19712 INFO Epoch 29/100, training loss: 0.00034 [14.74s]
+2025-11-16 12:59:59,460 P19712 INFO Evaluating test data.
+2025-11-16 12:59:59,832 P19712 INFO Finish inference [0.37s]
+2025-11-16 13:00:04,585 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9717', 'roc': '0.9970', 'apc': '0.9720', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 13:00:04,585 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:00:04,585 P19712 INFO 15 epoches left before early stop
+2025-11-16 13:00:19,293 P19712 INFO Epoch 30/100, training loss: 0.00034 [14.71s]
+2025-11-16 13:00:19,293 P19712 INFO Evaluating test data.
+2025-11-16 13:00:19,670 P19712 INFO Finish inference [0.38s]
+2025-11-16 13:00:24,690 P19712 INFO {'f1': '0.9176', 'rc': '0.9070', 'pc': '0.9286', 'prc': '0.9491', 'roc': '0.9940', 'apc': '0.9497', 'acc': '0.9833', 'mcc': '0.9084'}
+2025-11-16 13:00:24,690 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:00:24,691 P19712 INFO 14 epoches left before early stop
+2025-11-16 13:00:39,681 P19712 INFO Epoch 31/100, training loss: 0.00038 [14.99s]
+2025-11-16 13:00:39,681 P19712 INFO Evaluating test data.
+2025-11-16 13:00:40,108 P19712 INFO Finish inference [0.43s]
+2025-11-16 13:00:45,157 P19712 INFO {'f1': '0.9333', 'rc': '0.9225', 'pc': '0.9444', 'prc': '0.9666', 'roc': '0.9967', 'apc': '0.9672', 'acc': '0.9864', 'mcc': '0.9259'}
+2025-11-16 13:00:45,158 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:00:45,158 P19712 INFO 13 epoches left before early stop
+2025-11-16 13:01:00,305 P19712 INFO Epoch 32/100, training loss: 0.00023 [15.15s]
+2025-11-16 13:01:00,305 P19712 INFO Evaluating test data.
+2025-11-16 13:01:00,679 P19712 INFO Finish inference [0.37s]
+2025-11-16 13:01:05,634 P19712 INFO {'f1': '0.9490', 'rc': '0.9380', 'pc': '0.9603', 'prc': '0.9686', 'roc': '0.9964', 'apc': '0.9688', 'acc': '0.9896', 'mcc': '0.9433'}
+2025-11-16 13:01:05,634 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:01:05,634 P19712 INFO 12 epoches left before early stop
+2025-11-16 13:01:20,471 P19712 INFO Epoch 33/100, training loss: 0.00019 [14.84s]
+2025-11-16 13:01:20,472 P19712 INFO Evaluating test data.
+2025-11-16 13:01:20,848 P19712 INFO Finish inference [0.38s]
+2025-11-16 13:01:25,774 P19712 INFO {'f1': '0.9490', 'rc': '0.9380', 'pc': '0.9603', 'prc': '0.9666', 'roc': '0.9958', 'apc': '0.9669', 'acc': '0.9896', 'mcc': '0.9433'}
+2025-11-16 13:01:25,775 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:01:25,775 P19712 INFO 11 epoches left before early stop
+2025-11-16 13:01:40,500 P19712 INFO Epoch 34/100, training loss: 0.00013 [14.73s]
+2025-11-16 13:01:40,500 P19712 INFO Evaluating test data.
+2025-11-16 13:01:40,865 P19712 INFO Finish inference [0.36s]
+2025-11-16 13:01:45,715 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9702', 'roc': '0.9975', 'apc': '0.9709', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 13:01:45,716 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:01:45,716 P19712 INFO 10 epoches left before early stop
+2025-11-16 13:02:00,857 P19712 INFO Epoch 35/100, training loss: 0.00019 [15.14s]
+2025-11-16 13:02:00,858 P19712 INFO Evaluating test data.
+2025-11-16 13:02:01,391 P19712 INFO Finish inference [0.53s]
+2025-11-16 13:02:07,643 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9747', 'roc': '0.9983', 'apc': '0.9752', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 13:02:07,644 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:02:07,644 P19712 INFO 9 epoches left before early stop
+2025-11-16 13:02:23,240 P19712 INFO Epoch 36/100, training loss: 0.00015 [15.59s]
+2025-11-16 13:02:23,240 P19712 INFO Evaluating test data.
+2025-11-16 13:02:23,718 P19712 INFO Finish inference [0.48s]
+2025-11-16 13:02:29,679 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9792', 'roc': '0.9986', 'apc': '0.9795', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 13:02:29,679 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:02:29,679 P19712 INFO 8 epoches left before early stop
+2025-11-16 13:02:45,208 P19712 INFO Epoch 37/100, training loss: 0.00018 [15.53s]
+2025-11-16 13:02:45,209 P19712 INFO Evaluating test data.
+2025-11-16 13:02:45,588 P19712 INFO Finish inference [0.38s]
+2025-11-16 13:02:50,621 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9809', 'roc': '0.9987', 'apc': '0.9811', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 13:02:50,622 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:02:50,622 P19712 INFO 7 epoches left before early stop
+2025-11-16 13:03:05,380 P19712 INFO Epoch 38/100, training loss: 0.00013 [14.76s]
+2025-11-16 13:03:05,381 P19712 INFO Evaluating test data.
+2025-11-16 13:03:05,806 P19712 INFO Finish inference [0.42s]
+2025-11-16 13:03:12,945 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9826', 'roc': '0.9989', 'apc': '0.9828', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 13:03:12,945 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:03:12,945 P19712 INFO 6 epoches left before early stop
+2025-11-16 13:03:27,956 P19712 INFO Epoch 39/100, training loss: 0.00009 [15.01s]
+2025-11-16 13:03:27,957 P19712 INFO Evaluating test data.
+2025-11-16 13:03:28,439 P19712 INFO Finish inference [0.48s]
+2025-11-16 13:03:34,404 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9808', 'roc': '0.9986', 'apc': '0.9810', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 13:03:34,405 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:03:34,405 P19712 INFO 5 epoches left before early stop
+2025-11-16 13:03:49,611 P19712 INFO Epoch 40/100, training loss: 0.00019 [15.21s]
+2025-11-16 13:03:49,611 P19712 INFO Evaluating test data.
+2025-11-16 13:03:50,042 P19712 INFO Finish inference [0.43s]
+2025-11-16 13:03:55,139 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9820', 'roc': '0.9990', 'apc': '0.9822', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 13:03:55,139 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:03:55,140 P19712 INFO 4 epoches left before early stop
+2025-11-16 13:04:09,886 P19712 INFO Epoch 41/100, training loss: 0.00020 [14.75s]
+2025-11-16 13:04:09,887 P19712 INFO Evaluating test data.
+2025-11-16 13:04:10,302 P19712 INFO Finish inference [0.42s]
+2025-11-16 13:04:15,322 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9746', 'roc': '0.9987', 'apc': '0.9754', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 13:04:15,324 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:04:15,324 P19712 INFO 3 epoches left before early stop
+2025-11-16 13:04:30,037 P19712 INFO Epoch 42/100, training loss: 0.00014 [14.71s]
+2025-11-16 13:04:30,037 P19712 INFO Evaluating test data.
+2025-11-16 13:04:30,422 P19712 INFO Finish inference [0.38s]
+2025-11-16 13:04:35,594 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9777', 'roc': '0.9989', 'apc': '0.9783', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 13:04:35,594 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:04:35,594 P19712 INFO 2 epoches left before early stop
+2025-11-16 13:04:50,352 P19712 INFO Epoch 43/100, training loss: 0.00017 [14.76s]
+2025-11-16 13:04:50,353 P19712 INFO Evaluating test data.
+2025-11-16 13:04:50,735 P19712 INFO Finish inference [0.38s]
+2025-11-16 13:04:55,809 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9779', 'roc': '0.9987', 'apc': '0.9785', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 13:04:55,809 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:04:55,810 P19712 INFO 1 epoches left before early stop
+2025-11-16 13:05:10,826 P19712 INFO Epoch 44/100, training loss: 0.00030 [15.02s]
+2025-11-16 13:05:10,826 P19712 INFO Evaluating test data.
+2025-11-16 13:05:11,269 P19712 INFO Finish inference [0.44s]
+2025-11-16 13:05:16,570 P19712 INFO {'f1': '0.9725', 'rc': '0.9612', 'pc': '0.9841', 'prc': '0.9763', 'roc': '0.9984', 'apc': '0.9768', 'acc': '0.9944', 'mcc': '0.9695'}
+2025-11-16 13:05:16,570 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:05:16,571 P19712 INFO 0 epoches left before early stop
+2025-11-16 13:05:16,571 P19712 INFO Early stop at epoch: 44
+2025-11-16 13:05:16,580 P19712 INFO Start training on 64 batches with cuda:0.
+2025-11-16 13:05:31,909 P19712 INFO Epoch 1/100, training loss: 0.03799 [15.33s]
+2025-11-16 13:05:31,909 P19712 INFO Evaluating test data.
+2025-11-16 13:05:32,356 P19712 INFO Finish inference [0.45s]
+2025-11-16 13:05:37,537 P19712 INFO {'f1': '0.8941', 'rc': '0.8837', 'pc': '0.9048', 'prc': '0.9494', 'roc': '0.9949', 'apc': '0.9498', 'acc': '0.9785', 'mcc': '0.8822'}
+2025-11-16 13:05:37,537 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:05:37,538 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 13:05:54,108 P19712 INFO Epoch 2/100, training loss: 0.01063 [16.57s]
+2025-11-16 13:05:54,108 P19712 INFO Evaluating test data.
+2025-11-16 13:05:54,651 P19712 INFO Finish inference [0.54s]
+2025-11-16 13:06:01,554 P19712 INFO {'f1': '0.9288', 'rc': '0.9612', 'pc': '0.8986', 'prc': '0.9503', 'roc': '0.9954', 'apc': '0.9509', 'acc': '0.9848', 'mcc': '0.9210'}
+2025-11-16 13:06:01,554 P19712 INFO {'best anomaly ratio setting: 0.105'}
+2025-11-16 13:06:01,555 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 13:06:18,135 P19712 INFO Epoch 3/100, training loss: 0.00830 [16.57s]
+2025-11-16 13:06:18,136 P19712 INFO Evaluating test data.
+2025-11-16 13:06:18,764 P19712 INFO Finish inference [0.63s]
+2025-11-16 13:06:26,881 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9710', 'roc': '0.9977', 'apc': '0.9706', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 13:06:26,881 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:06:26,882 P19712 INFO Saving model to ./experiment_records\b69e9392\model.ckpt
+2025-11-16 13:06:43,796 P19712 INFO Epoch 4/100, training loss: 0.00655 [16.90s]
+2025-11-16 13:06:43,796 P19712 INFO Evaluating test data.
+2025-11-16 13:06:44,334 P19712 INFO Finish inference [0.54s]
+2025-11-16 13:06:51,897 P19712 INFO {'f1': '0.9588', 'rc': '0.9922', 'pc': '0.9275', 'prc': '0.9719', 'roc': '0.9979', 'apc': '0.9721', 'acc': '0.9912', 'mcc': '0.9546'}
+2025-11-16 13:06:51,897 P19712 INFO {'best anomaly ratio setting: 0.105'}
+2025-11-16 13:06:51,898 P19712 INFO 19 epoches left before early stop
+2025-11-16 13:07:08,305 P19712 INFO Epoch 5/100, training loss: 0.00556 [16.41s]
+2025-11-16 13:07:08,305 P19712 INFO Evaluating test data.
+2025-11-16 13:07:08,718 P19712 INFO Finish inference [0.41s]
+2025-11-16 13:07:14,005 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9726', 'roc': '0.9981', 'apc': '0.9731', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 13:07:14,005 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:07:14,006 P19712 INFO 18 epoches left before early stop
+2025-11-16 13:07:29,417 P19712 INFO Epoch 6/100, training loss: 0.00427 [15.41s]
+2025-11-16 13:07:29,417 P19712 INFO Evaluating test data.
+2025-11-16 13:07:29,973 P19712 INFO Finish inference [0.56s]
+2025-11-16 13:07:37,283 P19712 INFO {'f1': '0.9569', 'rc': '0.9457', 'pc': '0.9683', 'prc': '0.9603', 'roc': '0.9971', 'apc': '0.9611', 'acc': '0.9912', 'mcc': '0.9521'}
+2025-11-16 13:07:37,283 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:07:37,284 P19712 INFO 17 epoches left before early stop
+2025-11-16 13:07:53,856 P19712 INFO Epoch 7/100, training loss: 0.00982 [16.57s]
+2025-11-16 13:07:53,858 P19712 INFO Evaluating test data.
+2025-11-16 13:07:54,408 P19712 INFO Finish inference [0.55s]
+2025-11-16 13:08:02,134 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9690', 'roc': '0.9979', 'apc': '0.9693', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 13:08:02,135 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:08:02,135 P19712 INFO 16 epoches left before early stop
+2025-11-16 13:08:18,472 P19712 INFO Epoch 8/100, training loss: 0.00659 [16.34s]
+2025-11-16 13:08:18,472 P19712 INFO Evaluating test data.
+2025-11-16 13:08:18,989 P19712 INFO Finish inference [0.52s]
+2025-11-16 13:08:25,448 P19712 INFO {'f1': '0.9588', 'rc': '0.9922', 'pc': '0.9275', 'prc': '0.9701', 'roc': '0.9978', 'apc': '0.9704', 'acc': '0.9912', 'mcc': '0.9546'}
+2025-11-16 13:08:25,448 P19712 INFO {'best anomaly ratio setting: 0.105'}
+2025-11-16 13:08:25,448 P19712 INFO 15 epoches left before early stop
+2025-11-16 13:08:40,101 P19712 INFO Epoch 9/100, training loss: 0.00305 [14.65s]
+2025-11-16 13:08:40,101 P19712 INFO Evaluating test data.
+2025-11-16 13:08:40,515 P19712 INFO Finish inference [0.41s]
+2025-11-16 13:08:45,654 P19712 INFO {'f1': '0.9569', 'rc': '0.9457', 'pc': '0.9683', 'prc': '0.9618', 'roc': '0.9974', 'apc': '0.9625', 'acc': '0.9912', 'mcc': '0.9521'}
+2025-11-16 13:08:45,654 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:08:45,654 P19712 INFO 14 epoches left before early stop
+2025-11-16 13:09:00,397 P19712 INFO Epoch 10/100, training loss: 0.00201 [14.74s]
+2025-11-16 13:09:00,398 P19712 INFO Evaluating test data.
+2025-11-16 13:09:00,784 P19712 INFO Finish inference [0.39s]
+2025-11-16 13:09:05,466 P19712 INFO {'f1': '0.9647', 'rc': '0.9535', 'pc': '0.9762', 'prc': '0.9699', 'roc': '0.9980', 'apc': '0.9704', 'acc': '0.9928', 'mcc': '0.9608'}
+2025-11-16 13:09:05,466 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:09:05,466 P19712 INFO 13 epoches left before early stop
+2025-11-16 13:09:20,012 P19712 INFO Epoch 11/100, training loss: 0.00216 [14.54s]
+2025-11-16 13:09:20,012 P19712 INFO Evaluating test data.
+2025-11-16 13:09:20,366 P19712 INFO Finish inference [0.35s]
+2025-11-16 13:09:24,703 P19712 INFO {'f1': '0.9588', 'rc': '0.9922', 'pc': '0.9275', 'prc': '0.9722', 'roc': '0.9979', 'apc': '0.9726', 'acc': '0.9912', 'mcc': '0.9546'}
+2025-11-16 13:09:24,704 P19712 INFO {'best anomaly ratio setting: 0.105'}
+2025-11-16 13:09:24,704 P19712 INFO 12 epoches left before early stop
+2025-11-16 13:09:39,105 P19712 INFO Epoch 12/100, training loss: 0.00219 [14.40s]
+2025-11-16 13:09:39,105 P19712 INFO Evaluating test data.
+2025-11-16 13:09:39,485 P19712 INFO Finish inference [0.38s]
+2025-11-16 13:09:43,923 P19712 INFO {'f1': '0.9363', 'rc': '0.9690', 'pc': '0.9058', 'prc': '0.9528', 'roc': '0.9957', 'apc': '0.9535', 'acc': '0.9864', 'mcc': '0.9294'}
+2025-11-16 13:09:43,924 P19712 INFO {'best anomaly ratio setting: 0.105'}
+2025-11-16 13:09:43,924 P19712 INFO 11 epoches left before early stop
+2025-11-16 13:09:58,415 P19712 INFO Epoch 13/100, training loss: 0.00395 [14.49s]
+2025-11-16 13:09:58,417 P19712 INFO Evaluating test data.
+2025-11-16 13:09:58,767 P19712 INFO Finish inference [0.35s]
+2025-11-16 13:10:03,050 P19712 INFO {'f1': '0.8914', 'rc': '0.9225', 'pc': '0.8623', 'prc': '0.9496', 'roc': '0.9944', 'apc': '0.9500', 'acc': '0.9769', 'mcc': '0.8791'}
+2025-11-16 13:10:03,051 P19712 INFO {'best anomaly ratio setting: 0.105'}
+2025-11-16 13:10:03,051 P19712 INFO 10 epoches left before early stop
+2025-11-16 13:10:17,727 P19712 INFO Epoch 14/100, training loss: 0.00120 [14.68s]
+2025-11-16 13:10:17,727 P19712 INFO Evaluating test data.
+2025-11-16 13:10:18,125 P19712 INFO Finish inference [0.40s]
+2025-11-16 13:10:22,631 P19712 INFO {'f1': '0.8643', 'rc': '0.9380', 'pc': '0.8013', 'prc': '0.9349', 'roc': '0.9929', 'apc': '0.9354', 'acc': '0.9697', 'mcc': '0.8507'}
+2025-11-16 13:10:22,632 P19712 INFO {'best anomaly ratio setting: 0.115'}
+2025-11-16 13:10:22,632 P19712 INFO 9 epoches left before early stop
+2025-11-16 13:10:37,241 P19712 INFO Epoch 15/100, training loss: 0.00269 [14.61s]
+2025-11-16 13:10:37,242 P19712 INFO Evaluating test data.
+2025-11-16 13:10:37,605 P19712 INFO Finish inference [0.36s]
+2025-11-16 13:10:42,093 P19712 INFO {'f1': '0.8347', 'rc': '0.7829', 'pc': '0.8938', 'prc': '0.9034', 'roc': '0.9874', 'apc': '0.9041', 'acc': '0.9681', 'mcc': '0.8193'}
+2025-11-16 13:10:42,094 P19712 INFO {'best anomaly ratio setting: 0.086'}
+2025-11-16 13:10:42,094 P19712 INFO 8 epoches left before early stop
+2025-11-16 13:10:56,975 P19712 INFO Epoch 16/100, training loss: 0.00268 [14.88s]
+2025-11-16 13:10:56,975 P19712 INFO Evaluating test data.
+2025-11-16 13:10:57,351 P19712 INFO Finish inference [0.38s]
+2025-11-16 13:11:02,113 P19712 INFO {'f1': '0.9333', 'rc': '0.9225', 'pc': '0.9444', 'prc': '0.9556', 'roc': '0.9947', 'apc': '0.9558', 'acc': '0.9864', 'mcc': '0.9259'}
+2025-11-16 13:11:02,113 P19712 INFO {'best anomaly ratio setting: 0.095'}
+2025-11-16 13:11:02,113 P19712 INFO 7 epoches left before early stop
+2025-11-16 13:11:16,834 P19712 INFO Epoch 17/100, training loss: 0.00250 [14.72s]
+2025-11-16 13:11:16,835 P19712 INFO Evaluating test data.
+2025-11-16 13:11:17,223 P19712 INFO Finish inference [0.39s]
+2025-11-16 13:11:21,816 P19712 INFO {'f1': '0.9363', 'rc': '0.9690', 'pc': '0.9058', 'prc': '0.9616', 'roc': '0.9962', 'apc': '0.9619', 'acc': '0.9864', 'mcc': '0.9294'}
+2025-11-16 13:11:21,816 P19712 INFO {'best anomaly ratio setting: 0.105'}
+2025-11-16 13:11:21,816 P19712 INFO 6 epoches left before early stop
+2025-11-16 13:11:36,406 P19712 INFO Epoch 18/100, training loss: 0.00098 [14.59s]
+2025-11-16 13:11:36,406 P19712 INFO Evaluating test data.
+2025-11-16 13:11:36,783 P19712 INFO Finish inference [0.38s]
+2025-11-16 13:11:41,878 P19712 INFO {'f1': '0.8174', 'rc': '0.7287', 'pc': '0.9307', 'prc': '0.9073', 'roc': '0.9873', 'apc': '0.9080', 'acc': '0.9665', 'mcc': '0.8065'}
+2025-11-16 13:11:41,879 P19712 INFO {'best anomaly ratio setting: 0.075'}
+2025-11-16 13:11:41,879 P19712 INFO 5 epoches left before early stop
+2025-11-16 13:11:57,282 P19712 INFO Epoch 19/100, training loss: 0.00074 [15.40s]
+2025-11-16 13:11:57,282 P19712 INFO Evaluating test data.
+2025-11-16 13:11:57,675 P19712 INFO Finish inference [0.39s]
+2025-11-16 13:12:02,442 P19712 INFO {'f1': '0.8264', 'rc': '0.7752', 'pc': '0.8850', 'prc': '0.9154', 'roc': '0.9890', 'apc': '0.9161', 'acc': '0.9665', 'mcc': '0.8102'}
+2025-11-16 13:12:02,442 P19712 INFO {'best anomaly ratio setting: 0.086'}
+2025-11-16 13:12:02,442 P19712 INFO 4 epoches left before early stop
+2025-11-16 13:12:17,389 P19712 INFO Epoch 20/100, training loss: 0.00124 [14.95s]
+2025-11-16 13:12:17,389 P19712 INFO Evaluating test data.
+2025-11-16 13:12:17,774 P19712 INFO Finish inference [0.39s]
+2025-11-16 13:12:22,282 P19712 INFO {'f1': '0.8261', 'rc': '0.7364', 'pc': '0.9406', 'prc': '0.9102', 'roc': '0.9876', 'apc': '0.9107', 'acc': '0.9681', 'mcc': '0.8162'}
+2025-11-16 13:12:22,283 P19712 INFO {'best anomaly ratio setting: 0.075'}
+2025-11-16 13:12:22,283 P19712 INFO 3 epoches left before early stop
+2025-11-16 13:12:37,245 P19712 INFO Epoch 21/100, training loss: 0.00140 [14.96s]
+2025-11-16 13:12:37,246 P19712 INFO Evaluating test data.
+2025-11-16 13:12:37,626 P19712 INFO Finish inference [0.38s]
+2025-11-16 13:12:42,745 P19712 INFO {'f1': '0.8522', 'rc': '0.7597', 'pc': '0.9703', 'prc': '0.9237', 'roc': '0.9897', 'apc': '0.9242', 'acc': '0.9729', 'mcc': '0.8451'}
+2025-11-16 13:12:42,745 P19712 INFO {'best anomaly ratio setting: 0.075'}
+2025-11-16 13:12:42,746 P19712 INFO 2 epoches left before early stop
+2025-11-16 13:12:57,572 P19712 INFO Epoch 22/100, training loss: 0.00082 [14.83s]
+2025-11-16 13:12:57,573 P19712 INFO Evaluating test data.
+2025-11-16 13:12:57,961 P19712 INFO Finish inference [0.39s]
+2025-11-16 13:13:02,443 P19712 INFO {'f1': '0.8512', 'rc': '0.7984', 'pc': '0.9115', 'prc': '0.9296', 'roc': '0.9920', 'apc': '0.9305', 'acc': '0.9713', 'mcc': '0.8377'}
+2025-11-16 13:13:02,444 P19712 INFO {'best anomaly ratio setting: 0.086'}
+2025-11-16 13:13:02,444 P19712 INFO 1 epoches left before early stop
+2025-11-16 13:13:17,032 P19712 INFO Epoch 23/100, training loss: 0.00100 [14.59s]
+2025-11-16 13:13:17,032 P19712 INFO Evaluating test data.
+2025-11-16 13:13:17,417 P19712 INFO Finish inference [0.38s]
+2025-11-16 13:13:21,905 P19712 INFO {'f1': '0.7636', 'rc': '0.9767', 'pc': '0.6269', 'prc': '0.8627', 'roc': '0.9805', 'apc': '0.8634', 'acc': '0.9378', 'mcc': '0.7536'}
+2025-11-16 13:13:21,906 P19712 INFO {'best anomaly ratio setting: 0.155'}
+2025-11-16 13:13:21,906 P19712 INFO 0 epoches left before early stop
+2025-11-16 13:13:21,906 P19712 INFO Early stop at epoch: 23
